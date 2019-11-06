@@ -1,30 +1,54 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Router from "vue-router";
+import HelloWorld from "@/components/HelloWorld";
 
-Vue.use(VueRouter);
+import Home from "@/components/Home";
 
-const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
-];
+import FirstPart from "@/components/HomeComponents/FirstPart";
+import SecondPart from "@/components/HomeComponents/SecondPart";
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
+Vue.use(Router);
+
+
+export default new Router({
+    routes: [
+        {
+            path: "/",
+            name: "hello",
+            component: HelloWorld,
+            meta: {
+                time: "hello meta中的数据"
+            },
+        },
+
+        {
+            path: "/hello",
+            name: "hello",
+            component: HelloWorld,
+            meta: {
+                time: "hello meta中的数据"
+            }
+        },
+        {
+            path: "/Home",
+            name: "Home",
+            component: Home,
+            children: [
+                {
+                    path: "/",
+                    name: "FirstPart",
+                    component: FirstPart,
+                    meta: {
+                        time: "sa",
+                        keep: true
+                    }
+                },
+                {
+                    path: "SecondPart",
+                    name: "SecondPart",
+                    component: SecondPart
+                }
+            ]
+        }
+    ]
 });
-
-export default router;
