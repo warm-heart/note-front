@@ -9,7 +9,6 @@ import SecondPart from "@/components/HomeComponents/SecondPart";
 
 Vue.use(Router);
 
-
 export default new Router({
     routes: [
         {
@@ -17,8 +16,9 @@ export default new Router({
             name: "hello",
             component: HelloWorld,
             meta: {
-                time: "hello meta中的数据"
-            },
+                time: "world",
+                title: "hello"
+            }
         },
 
         {
@@ -39,7 +39,7 @@ export default new Router({
                     name: "FirstPart",
                     component: FirstPart,
                     meta: {
-                        time: "sa",
+                        time: "home下的FirstPart中meta数据",
                         keep: true
                     }
                 },
