@@ -1,11 +1,18 @@
 import Vue from "vue";
 import Router from "vue-router";
-import HelloWorld from "@/components/HelloWorld";
 
 import Home from "@/components/Home";
+import myNote from "@/components/note/myNote";
+import createNote from "@/components/note/createNote";
+import myCollection from "@/components/note/myCollection";
+import compareNote from "@/components/note/compareNote";
+import myNotebook from "@/components/notebook/myNotebook";
+import notebookInfo from "@/components/notebook/notebookInfo";
+import createNotebook from "@/components/notebook/createNotebook";
+import userInfo from "@/components/user/userInfo";
+import resetPassword from "@/components/user/resetPassword";
+import notice from "@/components/notice";
 
-import FirstPart from "@/components/HomeComponents/FirstPart";
-import SecondPart from "@/components/HomeComponents/SecondPart";
 
 Vue.use(Router);
 
@@ -13,41 +20,98 @@ export default new Router({
     routes: [
         {
             path: "/",
-            name: "hello",
-            component: HelloWorld,
+            name: "home",
+            component: Home,
             meta: {
-                time: "world",
-                title: "hello"
-            }
+                title: "首页"
+            },
         },
 
         {
-            path: "/hello",
-            name: "hello",
-            component: HelloWorld,
-            meta: {
-                time: "hello meta中的数据"
-            }
-        },
-        {
-            path: "/Home",
-            name: "Home",
+            path: "/home",
+            name: "home",
             component: Home,
             children: [
                 {
-                    path: "/",
-                    name: "FirstPart",
-                    component: FirstPart,
+                    path: "compareNote",
+                    name: "compareNote",
+                    component: compareNote,
                     meta: {
-                        time: "home下的FirstPart中meta数据",
-                        keep: true
+                        title: "笔记精选",
                     }
                 },
                 {
-                    path: "SecondPart",
-                    name: "SecondPart",
-                    component: SecondPart
-                }
+                    path: "myNote",
+                    name: "myNote",
+                    component: myNote,
+                    meta: {
+                        title: "我的笔记"
+                    }
+                },
+                {
+                    path: "createNote",
+                    name: "createNote",
+                    component: createNote,
+                    meta: {
+                        title: "新建笔记"
+                    }
+                },
+                {
+                    path: "myCollection",
+                    name: "myCollection",
+                    component: myCollection,
+                    meta: {
+                        title: "我的收藏"
+                    }
+                },
+                {
+                    path: "myNotebook",
+                    name: "myNotebook",
+                    component: myNotebook,
+                    meta: {
+                        title: "我的笔记本"
+                    }
+                },
+                {
+                    path: "createNotebook",
+                    name: "createNotebook",
+                    component: createNotebook,
+                    meta: {
+                        title: "新建笔记本"
+                    }
+                },
+                {
+                    path: "notebookInfo",
+                    name: "notebookInfo",
+                    component: notebookInfo,
+                    meta: {
+                        title: "笔记本内容",
+                    }
+                },
+                {
+                    path: "resetPassword",
+                    name: "resetPassword",
+                    component: resetPassword,
+                    meta: {
+                        title: "重置密码"
+                    }
+                },
+                {
+                    path: "userInfo",
+                    name: "userInfo",
+                    component: userInfo,
+                    meta: {
+                        title: "个人信息"
+                    }
+                },
+                {
+                    path: "notice",
+                    name: "notice",
+                    component: notice,
+                    meta: {
+                        title: "系统公告"
+                    }
+                },
             ]
         }
     ]
