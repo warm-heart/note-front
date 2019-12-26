@@ -23,7 +23,7 @@
             <!-- 子菜单：用户管理 -->
             <el-submenu index="2">
                 <template slot="title">
-                    <i class="el-icon-edit"></i>
+                    <i class="iconfont icon-iconset0123"> </i>
                     <span>我的笔记</span>
                 </template>
                 <el-menu-item-group>
@@ -39,14 +39,14 @@
             <!-- 子菜单：笔记本管理 -->
             <el-submenu index="3">
                 <template slot="title">
-                    <i class="el-icon-menu"></i>
+                    <i class="iconfont icon-biji"></i>
                     <span>笔记分类</span>
                 </template>
                 <el-menu-item-group>
                     <el-menu-item index="31" @click="toMyNotebook">我的笔记分类</el-menu-item>
                 </el-menu-item-group>
                 <el-menu-item-group>
-                    <el-menu-item index="31" @click="toCreateNotebook">新建笔记分类</el-menu-item>
+                    <el-menu-item index="32" @click="toCreateNotebook">新建笔记分类</el-menu-item>
                 </el-menu-item-group>
             </el-submenu>
             <!-- 子菜单：笔记管理 -->
@@ -92,7 +92,8 @@
             //首页
             toHome() {
                 this.$router.push({
-                    name: "compareNote"
+                    //name: "compareNote"
+                    path:'/home/compareNote'
                 });
             },
             //我的笔记
@@ -150,8 +151,5 @@
 </script>
 
 <style scoped>
-    .el-menu {
-
-    }
 
 </style>

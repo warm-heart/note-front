@@ -4,14 +4,15 @@ import router from "./router";
 import store from "./store";
 
 import ElementUI from "element-ui";
-import axios from "axios";
+import axios from './utils/http'
 import VueAxios from "vue-axios";
+
 import "element-ui/lib/theme-chalk/index.css";
 
+import globalVal from './utils/global_val'
+import './assets/iconfont/iconfont.css'
+
 Vue.config.productionTip = false;
-
-axios.defaults.withCredentials = true;
-
 Vue.use(VueAxios, axios);
 Vue.use(ElementUI);
 
@@ -22,10 +23,34 @@ new Vue({
 }).$mount("#app");
 
 
-router.beforeEach((to, from, next) => {
-    to.meta.keep = false;
-    localStorage.token = 'cooper';
-    next();
+//页面刷新，重新赋值token
+if (window.localStorage.getItem('token')) {
+    store.commit(globalVal.LOGIN, localStorage.getItem("token"))
+}
+;
 
-})
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(r => r.meta.requireAuth)) {
+        if (store.state.token) {
+            next();
+        }
+        else {
+            ElementUI.Notification({
+                showClose: true,
+                message: '您好，请登录',
+                type: 'warning',
+                duration: 3000
+            });
+            next({
+                path: '/login',
+                query: {redirect: to.fullPath}
+            })
+        }
+    }
+    else {
+        next();
+    }
+});
+
+
 

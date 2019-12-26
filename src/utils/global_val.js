@@ -1,9 +1,10 @@
-const baseURL = "www.baidu.com";
-const token = "123456";
-const userSite = "cooper";
+
+export const LOGIN = 'login';
+export const LOGOUT = 'logout';
+export const TITLE = 'title';
 
 export default {
-    baseURL,
-    token,
-    userSite
+    LOGIN,
+    LOGOUT,
+    TITLE
 };

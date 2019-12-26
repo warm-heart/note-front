@@ -11,7 +11,10 @@ import notebookInfo from "@/components/notebook/notebookInfo";
 import createNotebook from "@/components/notebook/createNotebook";
 import userInfo from "@/components/user/userInfo";
 import resetPassword from "@/components/user/resetPassword";
+import login from "@/components/user/login";
+import register from "@/components/user/register";
 import notice from "@/components/notice";
+import store from "../store";
 
 
 Vue.use(Router);
@@ -28,6 +31,24 @@ export default new Router({
         },
 
         {
+            path: "/login",
+            name: "login",
+            component: login,
+            meta: {
+                title: "登录"
+            },
+        },
+
+        {
+            path: "/register",
+            name: "register",
+            component: register,
+            meta: {
+                title: "注册"
+            },
+        },
+
+        {
             path: "/home",
             name: "home",
             component: Home,
@@ -38,14 +59,15 @@ export default new Router({
                     component: compareNote,
                     meta: {
                         title: "笔记精选",
-                    }
+                    },
                 },
                 {
                     path: "myNote",
                     name: "myNote",
                     component: myNote,
                     meta: {
-                        title: "我的笔记"
+                        title: "我的笔记",
+                        requireAuth:true,
                     }
                 },
                 {
@@ -53,7 +75,8 @@ export default new Router({
                     name: "createNote",
                     component: createNote,
                     meta: {
-                        title: "新建笔记"
+                        title: "新建笔记",
+                        requireAuth:true,
                     }
                 },
                 {
@@ -61,7 +84,8 @@ export default new Router({
                     name: "myCollection",
                     component: myCollection,
                     meta: {
-                        title: "我的收藏"
+                        title: "我的收藏",
+                        requireAuth:true,
                     }
                 },
                 {
@@ -69,7 +93,8 @@ export default new Router({
                     name: "myNotebook",
                     component: myNotebook,
                     meta: {
-                        title: "我的笔记本"
+                        title: "我的笔记本",
+                        requireAuth:true,
                     }
                 },
                 {
@@ -77,7 +102,8 @@ export default new Router({
                     name: "createNotebook",
                     component: createNotebook,
                     meta: {
-                        title: "新建笔记本"
+                        title: "新建笔记本",
+                        requireAuth:true,
                     }
                 },
                 {
@@ -86,6 +112,7 @@ export default new Router({
                     component: notebookInfo,
                     meta: {
                         title: "笔记本内容",
+                        requireAuth:true,
                     }
                 },
                 {
@@ -93,7 +120,8 @@ export default new Router({
                     name: "resetPassword",
                     component: resetPassword,
                     meta: {
-                        title: "重置密码"
+                        title: "重置密码",
+                        requireAuth:true,
                     }
                 },
                 {
@@ -101,7 +129,8 @@ export default new Router({
                     name: "userInfo",
                     component: userInfo,
                     meta: {
-                        title: "个人信息"
+                        title: "个人信息",
+                        requireAuth:true,
                     }
                 },
                 {
@@ -109,10 +138,13 @@ export default new Router({
                     name: "notice",
                     component: notice,
                     meta: {
-                        title: "系统公告"
+                        title: "系统公告",
+                        requireAuth:true,
                     }
                 },
             ]
         }
     ]
 });
+
+
