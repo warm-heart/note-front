@@ -9,14 +9,26 @@
                 </el-col>
 
                 <el-col class="logout" :span="12">
-                    <template>
+
+                    <template v-if="!isLogin">
                         <div class="navOperater">
-                            <el-link type="info" @click="logout">退出登录{{this.$store.state.token}}</el-link>
+                            <el-button type="text" @click="toLogin">登录</el-button>
+
+                        </div>
+                        <div class="navOperater">
+                            <el-button type="text" @click="toRegister">注册</el-button>
+
+                        </div>
+                    </template>
+
+                    <template v-else>
+                        <div class="navOperater">
+                            <el-link type="info" @click="logout">退出登录</el-link>
                         </div>
                         <div class="navOperater">
                             <el-avatar
                                     class="avatar"
-                                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                                    :src="userIcon"
                             ></el-avatar>
                         </div>
                     </template>
@@ -54,8 +66,9 @@
         },
         data() {
             return {
-                token: this.$store.state.token,
-                url: "",
+                token: localStorage.getItem("token"),
+                isLogin: localStorage.getItem("token"),
+                userIcon: localStorage.getItem("user-icon"),
                 fits: ["fill", "contain", "cover", "none", "scale-down"],
 
             };
@@ -68,16 +81,15 @@
                     type: 'warning'
                 }).then(() => {
                     let that = this;
-                    const params = new URLSearchParams();
-                    params.append('token', this.token);
-
-                    this.axios.post('http://localhost:8080/logout',  qs.stringify({
-                        'token':this.token
+                    this.axios.post('http://localhost:8080/logout', qs.stringify({
+                        'token': that.token
                     }))
                         .then(function (response) {
                             var res = JSON.parse(JSON.stringify(response));
                             if (res.data.code == 200) {
                                 that.$store.commit(globalVal.LOGOUT);
+                                localStorage.removeItem("user-icon");
+                                location.reload();
                                 that.$message({
                                     type: 'success',
                                     message: res.data.data,
@@ -106,13 +118,27 @@
                         message: '已取消退出'
                     });
                 });
-            }
-        },
+            },
+            //登录
+            toRegister() {
+                this.$router.push({
+                    name: "register"
+                });
+            },
+            //注册
+            toLogin() {
+                this.$router.push({
+                    name: "login"
+                });
+            },
+        }
+        ,
         created() {
             var that = this;
             document.title = that.$route.meta.title;
         }
-    };
+    }
+    ;
 </script>
 <style lang="scss" scoped>
     body > .el-container {
@@ -125,7 +151,7 @@
 
     .el-header {
         text-align: left;
-        background-color: #212121;
+        background-color: white;
 
     .logout {
         text-align: right;

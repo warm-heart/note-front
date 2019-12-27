@@ -1,24 +1,22 @@
 <template>
     <div id="psd">
         <h1>我的收藏</h1>
-        <div class="con">
-            <div class="tip">单文件：</div>
-            <input class="file" type="file" title="请选择文件" value="请选择文件">
-            <div class="tip">输入姓名：</div>
-            <input class="inputS" type="text" v-model="name" placeholder="请在此输入姓名">
-            <button class="submit" @click="one">提交</button>
-        </div>
 
 
-        <div class="con">
-            <div class="tip">多文件：</div>
-            <input class="file" type="file" title="请选择文件" value="请选择文件">
-            <input class="file" type="file" title="请选择文件" value="请选择文件">
-            <div class="tip">输入姓名：</div>
-            <input class="inputS" type="text" v-model="name" placeholder="请在此输入姓名">
-            <button class="submit" @click="more">提交</button>
-        </div>
-
+        <el-upload
+                class="avatar-uploader"
+                ref="upload"
+                action=""
+                :http-request='uploadUserIcon'
+                :show-file-list="true"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+                :auto-upload="false">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">单文件上传到服务器
+            </el-button>
+        </el-upload>
 
     </div>
 </template>
@@ -28,30 +26,37 @@
         name: "myCollection",
         data() {
             return {
-                users: [],
-                message: '',
-                userName: 'hello world',
-                userPhone: '12134i35',
-
+                imageUrl: '',
             }
         },
         methods: {
-            one() {
-                var that = this;
+            handleAvatarSuccess(res, file) {
+                this.imageUrl = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
 
-                var formData = new window.FormData();
-                formData.append('file', document.querySelector('input[type=file]').files[0]);
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
+            submitUpload() {
+                this.$refs.upload.submit();
+            },
 
-                formData.append('userName', this.userName);
-                formData.append('userPhone', this.userPhone);
-                this.axios.post('http://localhost:8080/file', formData,
-                    {
-                        headers: {
-                            //文件上传设置
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }
-                )
+            uploadUserIcon(param) {
+                let that = this;
+                let formData = new FormData();
+                let config = {
+                    'Content-Type': 'multipart/form-data'
+                };
+                formData.append("file", param.file);
+                this.axios.post('http://localhost:8080/file', formData, config)
                     .then(function (response) {
                         var res = JSON.parse(JSON.stringify(response));
                         if (res.data.code == 200) {
@@ -67,54 +72,11 @@
                                 duration: 1000
                             })
                         }
-
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        //alert(error.response.data.msg)
-                    });
-
+                    }).catch(function (error) {
+                    console.log(error);
+                })
             },
-            more() {
-                var that = this;
-                var formData = new window.FormData();
-                var file=new Array(2);
-                file[0] = document.querySelector('input[type=file]').files[1];
-                file[1] = document.querySelector('input[type=file]').files[2];
-                formData.append("file", file);
-                //formData.append('userName', this.userName);
-                //formData.append('userPhone', this.userPhone);
-                this.axios.post('http://localhost:8080/postUploadMore', formData,
-                    {
-                        headers: {
-                            //文件上传设置
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }
-                )
-                    .then(function (response) {
-                        var res = JSON.parse(JSON.stringify(response));
-                        if (res.data.code == 200) {
-                            that.$message({
-                                message: res.data.msg,
-                                type: 'success',
-                                duration: 1000
-                            });
-                        } else {
-                            that.$message({
-                                message: res.data.msg,
-                                type: 'warning',
-                                duration: 1000
-                            })
-                        }
 
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        //alert(error.response.data.msg)
-                    });
-
-            },
         },
 
 
@@ -126,4 +88,30 @@
 
 <style scoped>
 
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
 </style>
