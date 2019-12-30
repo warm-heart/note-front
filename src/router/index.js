@@ -14,7 +14,7 @@ import resetPassword from "@/components/user/resetPassword";
 import login from "@/components/user/login";
 import register from "@/components/user/register";
 import notice from "@/components/notice";
-import store from "../store";
+import editor from "@/components/editor";
 
 
 Vue.use(Router);
@@ -27,6 +27,14 @@ export default new Router({
             component: Home,
             meta: {
                 title: "首页"
+            },
+        },
+        {
+            path: "/editor",
+            name: "editor",
+            component: editor,
+            meta: {
+                title: "富文本编辑器"
             },
         },
 

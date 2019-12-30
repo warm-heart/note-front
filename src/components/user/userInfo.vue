@@ -61,15 +61,13 @@
 
 
             submitUpload() {
-                this.$refs.upload.submit();
+               // this.$refs.upload.submit();
                 console.log("进入上传");
                 let that = this;
-                that.formData.append("userName", "cooper");
-                that.formData.append("userId", '12');
                 let config = {
                     'Content-Type': 'multipart/form-data'
                 };
-                this.axios.post('http://localhost:8080/updateUserIcon', that.formData, config
+                this.axios.post('http://localhost:8080/user/updateUserIcon', that.formData, config
                 )
                     .then(function (response) {
                         var res = JSON.parse(JSON.stringify(response));

@@ -5,7 +5,8 @@
             <el-row>
                 <el-col :span="12">
                     <!--<el-image style="width: 210px; height: 54px" :src="./assets/logo.png"></el-image>-->
-                    <img alt="Vue logo" style="width: 74px; height: 58px;" src="../assets/logo2.png">
+                 <!--   <img alt="Vue logo" style="width: 74px; height: 58px;" src="../assets/logo2.png">-->
+                    书海拾贝
                 </el-col>
 
                 <el-col class="logout" :span="12">
@@ -89,21 +90,21 @@
                             if (res.data.code == 200) {
                                 that.$store.commit(globalVal.LOGOUT);
                                 localStorage.removeItem("user-icon");
-                                location.reload();
                                 that.$message({
                                     type: 'success',
                                     message: res.data.data,
-                                    duration: 1000
+                                    duration: 1500
                                 });
                                 that.$router.push({
                                     path: '/'
                                 });
+                                location.reload();
 
                             } else {
                                 that.$message({
                                     message: res.data.msg,
                                     type: 'warning',
-                                    duration: 1000
+                                    duration: 1500
                                 })
                             }
                         })
