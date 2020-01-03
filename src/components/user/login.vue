@@ -1,19 +1,19 @@
 <template>
     <div>
 
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="用户名" prop="name">
-                <el-input v-model="ruleForm.name"></el-input>
+        <el-form :model="user" :rules="rules" ref="user" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="用户名" prop="userName">
+                <el-input v-model="user.userName"></el-input>
             </el-form-item>
 
             <el-form-item label="密码" prop="password">
-                <el-input v-model="ruleForm.password"></el-input>
+                <el-input v-model="user.password"></el-input>
             </el-form-item>
 
             <el-form-item>
                 <el-button type="primary" @click="login">登录</el-button>
                 <!-- <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>-->
-                <el-button @click="resetForm('ruleForm')">重置</el-button>
+                <el-button @click="resetForm('user')">重置</el-button>
             </el-form-item>
         </el-form>
 
@@ -32,24 +32,15 @@
         data() {
             return {
                 token: '',
-                userName: 'cooper',
-                password: '123456',
-                data: [],
-                userIcon: '',
-                ruleForm: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
+                user: {
+                    userName: null,
+                    password: null,
                 },
+                userIcon: '',
                 rules: {
-                    name: [
+                    userName: [
                         {required: true, message: '请输入用户名', trigger: 'blur'},
-                        {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+                        {min: 3, max: 24, message: '长度在 3 到 24 个字符', trigger: 'blur'}
                     ],
                     password: [
                         {required: true, message: '请输入密码', trigger: 'change'}
@@ -66,8 +57,8 @@
                     'userName': that.userName,
                     'password': that.password*/
                     {
-                        userName: that.userName,
-                        userPassword: that.password
+                        userName: that.user.userName,
+                        userPassword: that.user.password
                     }
                 )
                     .then(function (response) {
@@ -100,6 +91,9 @@
                         //alert(error.response.data.msg)
                     });
             },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            }
 
         }
     }

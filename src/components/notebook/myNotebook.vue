@@ -1,5 +1,11 @@
 <template>
     <div>我的笔记本<br>
+
+        <div v-for="it in categoryList">
+            {{it.categoryName}}
+            {{it.categoryId}}
+            {{it.categoryDescription}}
+        </div>
         <el-button type="text" @click="open">点击打开 Message Box</el-button>
     </div>
 </template>
@@ -8,11 +14,14 @@
     export default {
         name: "myNotebook",
         data() {
-            return {}
+            return {
+                categoryList: []
+            }
         },
         created() {
             var that = this;
             document.title = that.$route.meta.title;
+            this.getNoteCategory();
         },
         methods: {
             open() {
@@ -22,7 +31,7 @@
                     type: 'warning'
                 }).then(() => {
                     this.$router.push({
-                        name:"notebookInfo",
+                        name: "notebookInfo",
                     });
                     this.$message({
                         type: 'success',
@@ -34,8 +43,32 @@
                         message: '已取消删除'
                     });
                 });
-            }
-        }
+            },
+            getNoteCategory() {
+                let that = this;
+                this.axios.post('http://localhost:8080/noteCategory/getNoteCategory')
+                    .then(function (response) {
+                        var res = JSON.parse(JSON.stringify(response));
+                        if (res.data.code == 200) {
+                            that.categoryList = res.data.data;
+                            console.log(that.categoryList);
+                        } else {
+                            that.$message({
+                                message: res.data.msg,
+                                type: 'warning',
+                                duration: 1000
+                            })
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        //alert(error.response.data.msg)
+                    });
+            },
+
+
+        },
 
     }
 </script>

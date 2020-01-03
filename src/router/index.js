@@ -5,6 +5,8 @@ import Home from "@/components/Home";
 import myNote from "@/components/note/myNote";
 import createNote from "@/components/note/createNote";
 import myCollection from "@/components/note/myCollection";
+import noteDetail from "@/components/note/NoteDetail";
+import updateNote from "@/components/note/updateNote";
 import compareNote from "@/components/note/compareNote";
 import myNotebook from "@/components/notebook/myNotebook";
 import notebookInfo from "@/components/notebook/notebookInfo";
@@ -13,8 +15,8 @@ import userInfo from "@/components/user/userInfo";
 import resetPassword from "@/components/user/resetPassword";
 import login from "@/components/user/login";
 import register from "@/components/user/register";
-import notice from "@/components/notice";
-import editor from "@/components/editor";
+import notice from "@/components/user/notice";
+
 
 
 Vue.use(Router);
@@ -29,14 +31,7 @@ export default new Router({
                 title: "首页"
             },
         },
-        {
-            path: "/editor",
-            name: "editor",
-            component: editor,
-            meta: {
-                title: "富文本编辑器"
-            },
-        },
+
 
         {
             path: "/login",
@@ -84,6 +79,25 @@ export default new Router({
                     component: createNote,
                     meta: {
                         title: "新建笔记",
+                        requireAuth:true,
+                    }
+                },
+                {
+                    path: "updateNote",
+                    name: "updateNote",
+                    component: updateNote,
+                    meta: {
+                        title: "修改笔记",
+                        requireAuth:true,
+                    }
+                },
+
+                {
+                    path: "noteDetail",
+                    name: "noteDetail",
+                    component: noteDetail,
+                    meta: {
+                        title: "笔记详情",
                         requireAuth:true,
                     }
                 },

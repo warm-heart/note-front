@@ -1,7 +1,6 @@
 <template>
     <div>
-
-
+        修改
         <el-form :model="note" :rules="rules" ref="note" label-width="100px" class="demo-ruleForm">
             <el-form-item label="笔记标题" prop="noteTitle">
                 <el-input v-model="note.noteTitle"></el-input>
@@ -50,7 +49,7 @@
 
 
             <el-form-item>
-                <el-button type="primary" @click="createNote">提交</el-button>
+                <el-button type="primary" @click="updateNote">修改</el-button>
             </el-form-item>
 
 
@@ -62,6 +61,7 @@
 
 <script>
     import editor from '@/components/commons/noteEditor.vue'
+    import qs from 'qs'
 
     export default {
         name: "createNote",
@@ -73,6 +73,7 @@
                 interestContent: '',
                 content: '',
                 note: {
+                    noteId: null,
                     content: null,
                     noteTitle: null,
                     noteDescription: null,
@@ -119,10 +120,11 @@
                 this.inputValue = '';
             },
 
-            createNote() {
+            updateNote() {
                 let that = this;
-                this.axios.post('http://localhost:8080/note/createNote',
+                this.axios.post('http://localhost:8080/note/updateNote',
                     {
+                        noteId: this.note.noteId,
                         noteTitle: this.note.noteTitle,
                         noteDescription: this.note.noteDescription,
                         noteContext: that.note.content,
@@ -132,13 +134,12 @@
                     .then(function (response) {
                         var res = JSON.parse(JSON.stringify(response));
                         if (res.data.code == 200) {
-
                             that.$message({
-                                message: res.data.data,
+                                message: '修改成功',
                                 type: 'success',
                                 duration: 1500
-                            });
-
+                            })
+                            location.reload();
                         } else {
                             that.$message({
                                 message: res.data.msg,
@@ -160,7 +161,33 @@
                         var res = JSON.parse(JSON.stringify(response));
                         if (res.data.code == 200) {
                             that.categoryList = res.data.data;
-                            console.log(that.categoryList);
+                        } else {
+                            that.$message({
+                                message: res.data.msg,
+                                type: 'warning',
+                                duration: 1000
+                            })
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        //alert(error.response.data.msg)
+                    });
+            },
+
+            getNote(noteId) {
+                let that = this;
+                this.axios.post('http://localhost:8080/note/getNoteByNoteId', qs.stringify({
+                    noteId: noteId
+                }))
+                    .then(function (response) {
+                        var res = JSON.parse(JSON.stringify(response));
+                        if (res.data.code == 200) {
+                            that.note.noteTitle = res.data.data.noteTitle;
+                            that.note.noteDescription = res.data.data.noteDescription;
+                            that.interestContent = res.data.data.noteContext;
+                            that.noteTags = res.data.data.noteTagList;
                         } else {
                             that.$message({
                                 message: res.data.msg,
@@ -179,6 +206,8 @@
         created() {
             //获取笔记分类
             this.getNoteCategory();
+            this.getNote(this.$route.query.noteId);
+            this.note.noteId = this.$route.query.noteId;
         }
 
     }

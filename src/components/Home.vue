@@ -56,7 +56,7 @@
 
 <script>
     // 导入组件
-    import Aside from "@/components/aside.vue";
+    import Aside from "@/components/commons/aside.vue";
     import globalVal from '../utils/global_val';
     import qs from 'qs';
 
@@ -96,7 +96,7 @@
                                     duration: 1500
                                 });
                                 that.$router.push({
-                                    path: '/'
+                                    path: '/home/compareNote'
                                 });
                                 location.reload();
 
@@ -178,7 +178,5 @@
 
     }
 
-    /*todo 分页  https://www.cnblogs.com/web-aqin/p/10769435.html
-    https://blog.csdn.net/weixin_33896726/article/details/91428629
-    */
+
 </style>

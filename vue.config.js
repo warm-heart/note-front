@@ -1,5 +1,16 @@
 // vue.config.js
+
+var webpack = require('webpack');
+
 module.exports = {
+    configureWebpack: {
+        plugins: [
+            new webpack.ProvidePlugin({
+                'window.Quill': 'quill/dist/quill.js',
+                'Quill': 'quill/dist/quill.js'
+            }),
+        ]
+    },
     publicPath: "/",
     outputDir: "dist", // 打包的目录
     lintOnSave: true, // 在保存时校验格式
@@ -13,5 +24,6 @@ module.exports = {
         proxy: null, // 设置代理
         before: app => {
         }
-    }
+    },
+
 };

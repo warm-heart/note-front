@@ -15,7 +15,7 @@
                         class="avatar-uploader"
                         action=""
                         ref="upload"
-                        :http-request='uploadUserIcon'
+                        :http-request='updateUserAvatar'
                         :show-file-list="false"
                         :auto-upload="true"
                         :before-upload="beforeAvatarUpload">
@@ -67,7 +67,7 @@
                 let config = {
                     'Content-Type': 'multipart/form-data'
                 };
-                this.axios.post('http://localhost:8080/user/updateUserIcon', that.formData, config
+                this.axios.post('http://localhost:8080/user/updateUserAvatar', that.formData, config
                 )
                     .then(function (response) {
                         var res = JSON.parse(JSON.stringify(response));
@@ -92,7 +92,7 @@
                     })
 
             },
-            uploadUserIcon(param) {
+            updateUserAvatar(param) {
                 let that = this;
                 this.formData = new FormData();
                 that.imageUrl = URL.createObjectURL(param.file);

@@ -13,19 +13,8 @@
                     {{it.name}}
                 </div>
             </el-card>
-            <el-card :body-style="{ padding: '0px' }">
-                第二种{{it.title}}
-                <div style="padding: 14px;">
-                    <span></span>
-                    <div class="bottom clearfix">
-                        <div>
-                            {{it.name}}
-                        </div>
-                        <el-button type="text" class="button">操作按钮</el-button>
-                        <time class="time">上次修改时间{{ currentDate }}</time>
-                    </div>
-                </div>
-            </el-card>
+
+
         </div>
 
 
