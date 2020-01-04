@@ -178,15 +178,15 @@
 
             getNote(noteId) {
                 let that = this;
-                this.axios.post('http://localhost:8080/note/getNoteByNoteId', qs.stringify({
+                this.axios.post('http://localhost:8080/note/noteDetail', qs.stringify({
                     noteId: noteId
                 }))
                     .then(function (response) {
                         var res = JSON.parse(JSON.stringify(response));
                         if (res.data.code == 200) {
-                            that.note.noteTitle = res.data.data.noteTitle;
-                            that.note.noteDescription = res.data.data.noteDescription;
-                            that.interestContent = res.data.data.noteContext;
+                            that.note.noteTitle = res.data.data.note.noteTitle;
+                            that.note.noteDescription = res.data.data.note.noteDescription;
+                            that.interestContent = res.data.data.note.noteContext;
                             that.noteTags = res.data.data.noteTagList;
                         } else {
                             that.$message({

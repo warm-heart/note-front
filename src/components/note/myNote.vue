@@ -5,15 +5,24 @@
             <el-card class="box-card" shadow="hover">
                 <div slot="header" class="clearfix">
                     <span>{{note.noteTitle}}</span>
-                    <el-button style="float: right; padding: 3px 0" type="text" @click="editNote(note.noteId)">编辑
-                    </el-button>
-                    <el-button style="float: right; padding: 3px 0" type="text" @click="noteDetail(note.noteId)">查看详情
-                    </el-button>
-                    <el-button style="float: right; padding: 3px 0" type="text" @click="removeNote(note.noteId)">删除
-                    </el-button>
+                    <div v-if="!note.noteStatus">
+                        <el-button style="float: right; padding: 3px 0" type="text" @click="editNote(note.noteId)">编辑
+                        </el-button>
+                        <el-button style="float: right; padding: 3px 0" type="text" @click="noteDetail(note.noteId)">
+                            查看详情
+                        </el-button>
+                        <el-button style="float: right; padding: 3px 0" type="text" @click="removeNote(note.noteId)">删除
+                        </el-button>
+                    </div>
+                    <div v-else> 您的文章被禁用，请联系管理员</div>
                 </div>
                 <div class="text">
                     <div v-html='note.noteDescription'></div>
+                    {{note.updateTime}}
+
+                    <el-button v-if="note.shareStatus">已经分享</el-button>
+                    <el-button v-else>分享</el-button>
+
                 </div>
 
             </el-card>
@@ -110,7 +119,7 @@
             },
             findByPage(pageCode, pageSize) {
                 let that = this;
-                this.axios.post('http://localhost:8080/note/getMyNote', qs.stringify({
+                this.axios.post('http://localhost:8080/note/myNote', qs.stringify({
                     page: pageCode,
                     size: pageSize
                 }))
