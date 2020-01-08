@@ -28,10 +28,7 @@
                 <el-button slot="reference">修改头像</el-button>
             </el-popover>
         </div>
-
     </div>
-
-
 </template>
 
 <script>
@@ -42,26 +39,23 @@
                 userIcon: localStorage.getItem("user-icon"),
                 imageUrl: '',
                 formData: '',
+                user: {},
             }
         },
         methods: {
             beforeAvatarUpload(file) {
                 const isJPG = file.type === 'image/jpeg';
                 const isLt2M = file.size / 1024 / 1024 < 2;
-
                 if (!isJPG) {
                     this.$message.error('上传头像图片只能是 JPG 格式!');
                 }
                 if (!isLt2M) {
                     this.$message.error('上传头像图片大小不能超过 2MB!');
                 }
-
                 return isJPG && isLt2M;
             },
-
-
             submitUpload() {
-               // this.$refs.upload.submit();
+                // this.$refs.upload.submit();
                 console.log("进入上传");
                 let that = this;
                 let config = {
@@ -85,12 +79,10 @@
                                 duration: 2000
                             })
                         }
-
                     })
                     .catch(function (error) {
                         console.log(error);
                     })
-
             },
             updateUserAvatar(param) {
                 let that = this;
@@ -98,14 +90,34 @@
                 that.imageUrl = URL.createObjectURL(param.file);
                 this.formData.append("file", param.file);
             },
+            getUserInfo() {
+                let that = this;
+                this.axios.post('http://localhost:8080/user/userInfo')
+                    .then(function (response) {
+                        var res = JSON.parse(JSON.stringify(response));
+                        if (res.data.code == 200) {
+                            that.user = res.data.data;
+                        } else {
+                            that.$message({
+                                message: res.data.msg,
+                                type: 'warning',
+                                duration: 1500
+                            })
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        //alert(error.response.data.msg)
+                    });
+            },
         },
         created() {
             var that = this;
             document.title = that.$route.meta.title;
+            this.getUserInfo();
         }
     }
 </script>
-
 <style scoped lang="scss">
     .userInfo {
         margin: 0 auto;
@@ -138,6 +150,4 @@
         height: 178px;
         display: block;
     }
-
-
 </style>

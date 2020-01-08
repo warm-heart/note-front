@@ -4,21 +4,18 @@
         <el-header>
             <el-row>
                 <el-col :span="12">
-                    <!--<el-image style="width: 210px; height: 54px" :src="./assets/logo.png"></el-image>-->
-                 <!--   <img alt="Vue logo" style="width: 74px; height: 58px;" src="../assets/logo2.png">-->
-                    书海拾贝
+                    <!-- <el-image style="width: 210px; height: 54px" :src="./assets/note.png"></el-image>-->
+                    <img alt="Vue logo" style="width: 210px; height: 58px;" src="../assets/logo2.png">
                 </el-col>
 
                 <el-col class="logout" :span="12">
-
                     <template v-if="!isLogin">
                         <div class="navOperater">
                             <el-button type="text" @click="toLogin">登录</el-button>
-
                         </div>
+
                         <div class="navOperater">
                             <el-button type="text" @click="toRegister">注册</el-button>
-
                         </div>
                     </template>
 
@@ -99,7 +96,6 @@
                                     path: '/home/compareNote'
                                 });
                                 location.reload();
-
                             } else {
                                 that.$message({
                                     message: res.data.msg,
@@ -112,7 +108,6 @@
                             console.log(error);
                             alert(error.response.data.msg)
                         });
-
                 }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -132,14 +127,12 @@
                     name: "login"
                 });
             },
-        }
-        ,
+        },
         created() {
             var that = this;
             document.title = that.$route.meta.title;
         }
-    }
-    ;
+    };
 </script>
 <style lang="scss" scoped>
     body > .el-container {
@@ -175,8 +168,6 @@
     .el-aside {
         background-color: #545c64;
         text-align: center;
-
     }
-
 
 </style>

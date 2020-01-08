@@ -5,8 +5,10 @@
             {{it.categoryName}}
             {{it.categoryId}}
             {{it.categoryDescription}}
+
+            <el-button type="text" @click="open(it.categoryId)">点击打开笔记本</el-button>
+
         </div>
-        <el-button type="text" @click="open">点击打开 Message Box</el-button>
     </div>
 </template>
 
@@ -24,25 +26,13 @@
             this.getNoteCategory();
         },
         methods: {
-            open() {
-                this.$confirm('是否跳转, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$router.push({
-                        name: "notebookInfo",
-                    });
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
+            open(categoryId) {
+
+                this.$router.push({
+                    name: "notebookInfo",
+                    query: {categoryId: categoryId}
                 });
+
             },
             getNoteCategory() {
                 let that = this;
@@ -56,7 +46,7 @@
                             that.$message({
                                 message: res.data.msg,
                                 type: 'warning',
-                                duration: 1000
+                                duration: 1500
                             })
                         }
 
@@ -66,8 +56,6 @@
                         //alert(error.response.data.msg)
                     });
             },
-
-
         },
 
     }

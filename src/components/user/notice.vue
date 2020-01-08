@@ -1,9 +1,5 @@
 <template>
     <div>系统公告
-
-
-
-
     </div>
 </template>
 
@@ -13,21 +9,14 @@
     export default {
         name: "notice",
         data() {
-            return {
-
-
-
-            }
+            return {}
         },
         created() {
             var that = this;
             document.title = that.$route.meta.title;
         },
-        methods: {
-
-        }
+        methods: {}
     }
-
 </script>
 
 <style scoped>

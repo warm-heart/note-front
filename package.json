@@ -46,10 +46,7 @@
       "@vue/prettier"
     ],
     "rules": {
-      "indent": [
-        1,
-        4
-      ]
+      "indent": [1, 4]
     },
     "parserOptions": {
       "parser": "babel-eslint"
