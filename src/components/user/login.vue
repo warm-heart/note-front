@@ -12,7 +12,6 @@
 
             <el-form-item>
                 <el-button type="primary" @click="login">登录</el-button>
-                <!-- <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>-->
                 <el-button @click="resetForm('user')">重置</el-button>
             </el-form-item>
         </el-form>
@@ -67,6 +66,7 @@
                             that.token = res.data.data[0];
                             that.userIcon = res.data.data[1];
                             localStorage.setItem("user-icon", that.userIcon);
+                            localStorage.setItem("user-name", res.data.data[2]);
                             that.$store.commit(globalVal.LOGIN, that.token);
                             that.$message({
                                 message: '登陆成功',

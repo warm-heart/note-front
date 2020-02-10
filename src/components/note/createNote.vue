@@ -1,61 +1,78 @@
 <template>
-    <div>
+    <div class="createNote">
 
 
+        <!--文本编辑器-->
         <el-form :model="note" :rules="rules" ref="note" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="笔记标题" prop="noteTitle">
-                <el-input v-model="note.noteTitle"></el-input>
-            </el-form-item>
-
-            <el-form-item label="笔记描述" prop="noteDescription">
-                <el-input v-model="note.noteDescription"></el-input>
-            </el-form-item>
-
-            <el-form-item label="笔记分类" prop="categoryName">
-                <el-select v-model="note.categoryName" placeholder="请选择笔记分类">
-                    <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.label"
-                               :value="item.categoryName"></el-option>
-                </el-select>
-            </el-form-item>
-
-
-            <el-form-item>
-
-                <el-tag
-                        :key="tag"
-                        v-for="tag in noteTags"
-                        closable
-                        :disable-transitions="false"
-                        @close="handleClose(tag)">
-                    {{tag}}
-                </el-tag>
-                <el-input
-                        class="input-new-tag"
-                        v-if="inputVisible"
-                        v-model="inputValue"
-                        ref="saveTagInput"
-                        size="small"
-                        @keyup.enter.native="handleInputConfirm"
-                        @blur="handleInputConfirm"
-                >
-                </el-input>
-                <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 为笔记添加标签</el-button>
-            </el-form-item>
-
-
             <el-form-item>
                 <note-editor class="editor" v-bind:interestContent="interestContent"
                              @editor-change="e=>{contentGet(e)}"></note-editor>
             </el-form-item>
 
-
-            <el-form-item>
-                <el-button type="primary" @click="createNote">提交</el-button>
-            </el-form-item>
-
-
         </el-form>
 
+        <!--  弹出完善信息-->
+        <el-button type="primary" @click="dialog = true">点击完善新建笔记信息</el-button>
+        <el-drawer
+                title=""
+                :before-close="handleClose"
+                :visible.sync="dialog"
+                direction="ttb"
+                custom-class="demo-drawer"
+                ref="drawer"
+                size="600px"
+        >
+            <div class="form">
+                <el-form :model="note" :rules="rules">
+                    <el-form-item label="笔记标题" prop="noteTitle">
+                        <el-input v-model="note.noteTitle"></el-input>
+                    </el-form-item>
+
+
+                    <el-form-item label="笔记描述" prop="noteDescription">
+                        <el-input v-model="note.noteDescription"></el-input>
+                    </el-form-item>
+
+
+                    <el-form-item label="" prop="categoryName">
+                        <el-select v-model="note.categoryName" placeholder="请选择笔记分类">
+                            <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.label"
+                                       :value="item.categoryName"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+
+                        <el-tag
+                                :key="tag"
+                                v-for="tag in noteTags"
+                                closable
+                                :disable-transitions="false"
+                                @close="handleClose(tag)">
+                            {{tag}}
+                        </el-tag>
+                        <el-input
+                                class="input-new-tag"
+                                v-if="inputVisible"
+                                v-model="inputValue"
+                                ref="saveTagInput"
+                                size="small"
+                                @keyup.enter.native="handleInputConfirm"
+                                @blur="handleInputConfirm"
+                        >
+                        </el-input>
+                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 为笔记添加标签</el-button>
+                    </el-form-item>
+                </el-form>
+                <div class="demo-drawer__footer">
+                    <el-button @click="cancelForm">取 消</el-button>
+                    <!-- <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中
+                         ...' : '确 定' }}
+                     </el-button>-->
+
+                    <el-button type="primary" @click="createNote">创建笔记</el-button>
+                </div>
+            </div>
+        </el-drawer>
 
     </div>
 </template>
@@ -70,6 +87,8 @@
         },
         data() {
             return {
+                //开启页面时不弹出完善信息框
+                dialog: false,
                 interestContent: '',
                 content: '',
                 note: {
@@ -138,6 +157,7 @@
                                 type: 'success',
                                 duration: 1500
                             });
+                            location.reload();
 
                         } else {
                             that.$message({
@@ -175,6 +195,22 @@
                         //alert(error.response.data.msg)
                     });
             },
+
+
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            cancelForm() {
+                this.loading = false;
+                this.dialog = false;
+                clearTimeout(this.timer);
+                location.reload();
+            }
         },
         created() {
             //获取笔记分类
@@ -184,13 +220,17 @@
     }
 </script>
 
-<style scoped>
+<style>
+
     .editor {
         width: 90%;
+
     }
 
     .editor .ql-container {
-        height: 30rem;
+        height: 20rem;
+        width: 100%;
+        text-align: left;
     }
 
     .el-tag + .el-tag {
@@ -209,6 +249,18 @@
         width: 90px;
         margin-left: 10px;
         vertical-align: bottom;
+    }
+
+    .form {
+
+        height: 500px;
+        width: 500px;
+        margin: 0px auto;
+    }
+
+    .createNote {
+
+        margin: 0px auto;
     }
 
 </style>

@@ -1,12 +1,20 @@
 <template>
     <div>
-        {{noteCategory.categoryName}}
-
-        <div v-html="note.noteContext"></div>
-
-        <el-tag v-for="it in noteTags">{{it}}</el-tag>
 
 
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span>{{note.noteTitle}}</span>
+
+                <el-tag v-for="it in noteTags">{{it}}</el-tag>
+
+
+                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+            </div>
+
+            <div class="content" v-html='note.noteContext'></div>
+
+        </el-card>
     </div>
 </template>
 
@@ -68,5 +76,8 @@
         margin-left: 10px;
     }
 
+    .content {
+        text-align: left;
+    }
 
 </style>

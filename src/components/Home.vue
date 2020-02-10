@@ -3,40 +3,53 @@
         <!-- 头部 -->
         <el-header>
             <el-row>
-                <el-col :span="12">
+                <el-col :span="2" :offset="1">
                     <!-- <el-image style="width: 210px; height: 54px" :src="./assets/note.png"></el-image>-->
-                    <img alt="Vue logo" style="width: 210px; height: 58px;" src="../assets/logo2.png">
+                    <!--<img alt="Vue logo" style="width: 210px; height: 58px;" src="../assets/logo2.png">-->
+                    在线笔记系统
                 </el-col>
 
-                <el-col class="logout" :span="12">
-                    <template v-if="!isLogin">
-                        <div class="navOperater">
-                            <el-button type="text" @click="toLogin">登录</el-button>
-                        </div>
+                <template v-if="!isLogin">
+                    <el-col :span="4" :offset="17">
+                        <el-button @click="toLogin">登录</el-button>
 
-                        <div class="navOperater">
-                            <el-button type="text" @click="toRegister">注册</el-button>
-                        </div>
-                    </template>
+                        <el-button @click="toRegister">注册</el-button>
+                    </el-col>
+                </template>
 
-                    <template v-else>
-                        <div class="navOperater">
-                            <el-link type="info" @click="logout">退出登录</el-link>
-                        </div>
+                <template v-else>
+                    <el-col :span="4" :offset="17">
                         <div class="navOperater">
                             <el-avatar
-                                    class="avatar"
                                     :src="userIcon"
                             ></el-avatar>
                         </div>
-                    </template>
-                </el-col>
+
+                        <div class="navOperater">
+                            <el-dropdown trigger="click" @command="handleCommand" class="nav">
+                           <span class="el-dropdown-link">
+                               {{userName}} <i class="el-icon-caret-bottom"></i>
+                            </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                                    <el-dropdown-item command="userDetail">个人中心</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </div>
+                    </el-col>
+
+
+                </template>
+
+
             </el-row>
+
+
         </el-header>
 
         <el-container>
             <!-- 侧边栏 -->
-            <el-aside width="210px">
+            <el-aside width="260px">
                 <Aside/>
             </el-aside>
 
@@ -44,7 +57,9 @@
             <el-main>
                 <template>
                     <router-view></router-view>
+
                 </template>
+
             </el-main>
         </el-container>
     </el-container>
@@ -60,18 +75,35 @@
     export default {
         name: "home",
         components: {
-            Aside
+            Aside,
+
         },
         data() {
             return {
                 token: localStorage.getItem("token"),
                 isLogin: localStorage.getItem("token"),
                 userIcon: localStorage.getItem("user-icon"),
+                userName: localStorage.getItem("user-name"),
                 fits: ["fill", "contain", "cover", "none", "scale-down"],
 
             };
         },
         methods: {
+
+
+            handleCommand(command) {
+
+                if (command == 'logout') {
+                    this.logout();
+                }
+
+                if (command == 'userDetail') {
+                    this.$router.push({
+                        name: "userInfo"
+                    });
+                }
+            },
+
             logout() {
                 this.$confirm('确定退出?', '提示', {
                     confirmButtonText: '确定',
@@ -87,6 +119,7 @@
                             if (res.data.code == 200) {
                                 that.$store.commit(globalVal.LOGOUT);
                                 localStorage.removeItem("user-icon");
+                                localStorage.removeItem("user-name");
                                 that.$message({
                                     type: 'success',
                                     message: res.data.data,
@@ -135,39 +168,70 @@
     };
 </script>
 <style lang="scss" scoped>
+
+
+    .el-header, .el-footer {
+        background-color: #07c4a8;
+        color: white;
+        text-align: center;
+        line-height: 60px;
+    }
+
+    .el-aside {
+        background-color: #545c64;
+        text-align: center;
+
+    }
+
+    .el-main {
+        /*  background-color: #E9EEF3;
+          color: #333;
+          text-align: center;
+          line-height: 160px;*/
+
+        background-color: #e9eef3;
+        text-align: center;
+
+    }
+
     body > .el-container {
         margin-bottom: 40px;
+    }
+
+    .el-container:nth-child(5) .el-aside,
+    .el-container:nth-child(6) .el-aside {
+        line-height: 260px;
+    }
+
+    .el-container:nth-child(7) .el-aside {
+        line-height: 320px;
     }
 
     .container {
         height: 630px;
     }
 
-    .el-header {
-        text-align: left;
-        background-color: white;
+    .el-dropdown-link {
+        color: white;
+        cursor: pointer;
+        text-align: center;
+    }
 
-    .logout {
-        text-align: right;
+    .el-dropdown-menu__item {
+        text-align: center;
+    }
+
+    .el-avatar {
+        margin-top: 8px;
+    }
 
     .navOperater {
         width: 80px;
         height: 80px;
-        float: right;
+        float: left;
         line-height: 50px;
 
     }
 
-    }
-    }
-    .el-main {
-        background-color: #e9eef3;
-        text-align: center;
-    }
-
-    .el-aside {
-        background-color: #545c64;
-        text-align: center;
-    }
 
 </style>

@@ -1,5 +1,30 @@
 <template>
     <div class="userInfo">
+
+        <div class="block">
+            <el-timeline>
+                <el-timeline-item timestamp="2018/4/12" placement="top">
+                    <el-card>
+                        <h4>更新 Github 模板</h4>
+                        <p>王小虎 提交于 2018/4/12 20:46</p>
+                    </el-card>
+                </el-timeline-item>
+                <el-timeline-item timestamp="2018/4/3" placement="top">
+                    <el-card>
+                        <h4>更新 Github 模板</h4>
+                        <p>王小虎 提交于 2018/4/3 20:46</p>
+                    </el-card>
+                </el-timeline-item>
+                <el-timeline-item timestamp="2018/4/2" placement="top">
+                    <el-card>
+                        <h4>更新 Github 模板</h4>
+                        <p>王小虎 提交于 2018/4/2 20:46</p>
+                    </el-card>
+                </el-timeline-item>
+            </el-timeline>
+        </div>
+
+
         <el-avatar
                 class="avatar"
                 :size="100"
@@ -25,9 +50,13 @@
                 <p>点击头像框选择上传文件</p>
                 <el-button type="primary" @click="submitUpload">点击上传
                 </el-button>
-                <el-button slot="reference">修改头像</el-button>
+
+                <el-button slot="reference" type="success">修改头像</el-button>
+
             </el-popover>
         </div>
+
+
     </div>
 </template>
 
@@ -122,6 +151,7 @@
     .userInfo {
         margin: 0 auto;
         text-align: center;
+
     }
 
     .avatar-uploader .el-upload {
@@ -149,5 +179,6 @@
         width: 178px;
         height: 178px;
         display: block;
+
     }
 </style>

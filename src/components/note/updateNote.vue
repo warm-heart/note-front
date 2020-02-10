@@ -1,6 +1,6 @@
 <template>
     <div>
-        修改
+
         <el-form :model="note" :rules="rules" ref="note" label-width="100px" class="demo-ruleForm">
             <el-form-item label="笔记标题" prop="noteTitle">
                 <el-input v-model="note.noteTitle"></el-input>

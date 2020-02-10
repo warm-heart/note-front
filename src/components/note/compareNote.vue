@@ -1,54 +1,103 @@
 <template>
     <div>
-        {{state}}
+
+
+        <el-carousel :interval="4000" type="card" height="200px">
+            <el-carousel-item v-for="item in 6" :key="item">
+                <img :src="usericon">
+            </el-carousel-item>
+        </el-carousel>
+
+
         <div>
             <div v-for="note in noteShare">
-                <el-card class="box-card" shadow="hover">
-                    <div slot="header" class="clearfix">
-                        <span>{{note.noteTitle}}</span>
-                        <div v-if="!note.noteStatus">
-                            <el-button style="float: right; padding: 3px 0" type="text"
-                                       @click="noteDetail(note.noteId)">
-                                查看详情
-                            </el-button>
-                            <el-button style="float: right; padding: 3px 0" type="text"
-                                       @click="love(note.noteId)">
-                                点赞
-                            </el-button>
+
+                <el-card class="box-card">
+                    <el-row>
+                        <el-col>
+                            <span>{{note.noteTitle}}</span>
+                        </el-col>
+
+                    </el-row>
+
+                    <el-row>
+                        <el-button style="float: right; padding: 3px 0" type="text"
+                                   @click="noteDetail(note.noteId)">
+                            查看详情
+                        </el-button>
+                        <el-button style="float: right; padding: 3px 0" type="text"
+                                   @click="love(note.noteId)">
+                            点赞
+                        </el-button>
+                    </el-row>
+
+
+                    <el-row>
+
+                        <div v-html='note.noteContext.substring(0,200).concat("......")' class="content">
+
                         </div>
-                        <div v-else> 您的文章被禁用，请联系管理员</div>
-                    </div>
-                    <div class="text">
-                        <div v-html='note.noteDescription'>
+                    </el-row>
+
+                    <el-row>
+                        <div class="description">
+                            At time/{{note.updateTime.substring(0,10)}}
+                            点赞数：{{note.loveCount}}
                         </div>
-                        更新时间：{{note.updateTime}}
-                        点赞数：{{note.loveCount}}
-                    </div>
+                    </el-row>
+
+
                 </el-card>
+
             </div>
-            <!-- 分页 -->
-            <div class="pagination">
-                <el-pagination
-                        background
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="pageConf.pageCode"
-                        :page-sizes="pageConf.pageOption"
-                        :page-size="pageConf.pageSize"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="pageConf.totalPage">
-                </el-pagination>
-            </div>
+            <!-- <el-card class="box-card" shadow="hover">
+                 <div slot="header" class="clearfix">
+                     <span>{{note.noteTitle}}</span>
+                     <div v-if="!note.noteStatus">
+                         <el-button style="float: right; padding: 3px 0" type="text"
+                                    @click="noteDetail(note.noteId)">
+                             查看详情
+                         </el-button>
+                         <el-button style="float: right; padding: 3px 0" type="text"
+                                    @click="love(note.noteId)">
+                             点赞
+                         </el-button>
+                     </div>
+                     <div v-else> 您的文章被禁用，请联系管理员</div>
+                 </div>
+                 <div class="text">
+                     <div v-html='note.noteDescription'>
+                     </div>
+                     更新时间：{{note.updateTime}}
+                     点赞数：{{note.loveCount}}
+                 </div>
+             </el-card>-->
         </div>
+        <!-- 分页 -->
+        <div class="pagination">
+            <el-pagination
+                    background
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="pageConf.pageCode"
+                    :page-sizes="pageConf.pageOption"
+                    :page-size="pageConf.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="pageConf.totalPage">
+            </el-pagination>
+        </div>
+    </div>
     </div>
 </template>
 
 <script>
     import qs from 'qs'
+
     export default {
         name: "compareNote",
         data() {
             return {
+                usericon: localStorage.getItem("user-icon"),
                 noteShare: [],
                 //定义分页 Config
                 pageConf: {
@@ -150,23 +199,52 @@
     }
 </script>
 <style scoped>
-    .text {
-        font-size: 14px;
-        font-family: 华文行楷;
+
+    .content {
+        float: left;
+        text-align: left;
+
     }
+
+    .description {
+        font-size: 15px;
+        float: left;
+        margin-top: 15px;
+    }
+
     .item {
         margin-bottom: 18px;
     }
+
     .clearfix:before,
     .clearfix:after {
         display: table;
         content: "";
     }
+
     .clearfix:after {
         clear: both
     }
+
     .box-card {
         width: auto;
         border-radius: 30px;
+        margin-top: 8px;
+    }
+
+    .el-carousel__item h3 {
+        color: #475669;
+        font-size: 14px;
+        opacity: 0.75;
+        line-height: 200px;
+        margin: 0;
+    }
+
+    .el-carousel__item:nth-child(2n) {
+        background-color: #99a9bf;
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+        background-color: #d3dce6;
     }
 </style>

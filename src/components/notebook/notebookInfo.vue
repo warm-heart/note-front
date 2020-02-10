@@ -3,8 +3,9 @@
 
         <div v-for="note in notes">
             <el-card class="box-card" shadow="hover">
-                <div slot="header" class="clearfix">
-                    <span>{{note.noteTitle}}</span>
+                <span>{{note.noteTitle}}</span>
+
+                <el-row>
                     <div v-if="!note.noteStatus">
                         <el-button style="float: right; padding: 3px 0" type="text" @click="editNote(note.noteId)">编辑
                         </el-button>
@@ -15,15 +16,17 @@
                         </el-button>
                     </div>
                     <div v-else> 您的文章被禁用，请联系管理员</div>
-                </div>
-                <div class="text">
-                    <div v-html='note.noteDescription'></div>
-                    {{note.updateTime}}
+                </el-row>
+                <el-row>
+                    <div v-html='note.noteContext.substring(0,200).concat("......")' class="content"></div>
+                </el-row>
 
+                <el-row class="description">
+                    At time/{{note.updateTime.substring(0,10)}}
                     <el-button v-if="note.shareStatus">取消分享</el-button>
                     <el-button v-else>分享</el-button>
+                </el-row>
 
-                </div>
 
             </el-card>
 
@@ -122,5 +125,21 @@
 </script>
 
 <style scoped>
+
+    .description {
+        font-size: 15px;
+        float: left;
+        margin-top: 15px;
+    }
+
+    .content {
+        float: left;
+        text-align: left;
+    }
+
+    .box-card {
+        margin-top: 10px;
+    }
+
 
 </style>

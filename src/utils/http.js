@@ -59,7 +59,7 @@ axios.interceptors.response.use(
                         //message: '您好，登录已过期，请重新登录',
                         message:error.response.data.msg,
                         showClose: true,
-                        duration: 3000
+                        duration: 2000
                     });
                     // 只有在当前路由不是登录页面才跳转
                     router.currentRoute.path !== 'login' &&
