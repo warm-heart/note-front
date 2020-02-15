@@ -1,135 +1,77 @@
 <template>
 
-    <div>我的笔记
-        <!-- 列表 -->
-        <el-table
-                ref="user"
-                :data="user"
-                tooltip-effect="dark"
-                style="width: 100%">
-            <el-table-column
-                    prop="id"
-                    sortable
-                    label="编号"
-                    width="80">
-            </el-table-column>
-            <el-table-column
-                    prop="username"
-                    sortable
-                    label="联系人"
-                    width="120">
-            </el-table-column>
-            <el-table-column
-                    prop="phone"
-                    sortable
-                    label="联系电话"
-                    width="120">
-            </el-table-column>
-            <el-table-column
-                    prop="mailbox"
-                    label="电子邮箱"
-                    width="150">
-            </el-table-column>
-            <el-table-column
-                    prop="postalCode"
-                    sortable
-                    label="邮政编码"
-                    width="120">
-            </el-table-column>
-            <el-table-column
-                    prop="date"
-                    sortable
-                    label="注册时间"
-                    width="200">
-            </el-table-column>
-            <el-table-column
-                    prop="address"
-                    label="通讯地址"
-                    width="200"
-                    show-overflow-tooltip>
-            </el-table-column>
-        </el-table>
+    <div>
 
-        <!-- 分页 -->
-        <div class="pagination">
-            <el-pagination
-                    background
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="pageConf.pageCode"
-                    :page-sizes="pageConf.pageOption"
-                    :page-size="pageConf.pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="pageConf.totalPage">
-            </el-pagination>
-        </div>
+        <el-menu
+
+                class="el-menu-demo"
+                mode="horizontal"
+                @select="handleSelect"
+                background-color="#545c64"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+            <el-menu-item index="1" @click="userManager">用户管理</el-menu-item>
+            <el-submenu index="2">
+                <template slot="title">公告管理</template>
+                <el-menu-item index="2-1">查看公告</el-menu-item>
+                <el-menu-item index="2-2">创建公告</el-menu-item>
+                <el-menu-item index="2-3">选项3</el-menu-item>
+                <el-submenu index="2-4">
+                    <template slot="title">选项4</template>
+                    <el-menu-item index="2-4-1">选项1</el-menu-item>
+                    <el-menu-item index="2-4-2">选项2</el-menu-item>
+                    <el-menu-item index="2-4-3">选项3</el-menu-item>
+                </el-submenu>
+            </el-submenu>
+            <el-menu-item index="3" disabled>消息中心</el-menu-item>
+            <el-menu-item index="4"><router-link to="/admin/noteManager">笔记管理</router-link></el-menu-item>
+
+        </el-menu>
+
+
+        <router-view></router-view>
+
     </div>
-
 </template>
 
 <script>
+    import qs from 'qs'
+
     export default {
-        name: "myNote",
+        name: "admin",
         data() {
-            //用户信息
-            //element-ui 的 table 需要的参数必须是 Array 类型的
-            return {
-                user: [{
-                    username: "da",
-                    phone: 'da',
-                    mailbox: 'da',
-                    postalCode: 'da',
-                    date: new Date().getTime(),
-                    address: 'da'
-                }],
-                //定义分页 Config
-                pageConf: {
-                    //设置一些初始值(会被覆盖)
-                    pageCode: 1, //当前页
-                    pageSize: 4, //每页显示的记录数
-                    totalPage: 19, //总记录数
-                    pageOption: [4, 10, 20], //分页选项
-                    handleCurrentChange: function () {
-                        console.log("页码改变了");
-                    }
-                },
-            }
+            return {}
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log();
+            },
+            //用户管理
+            userManager() {
+
+                this.$router.push({
+                    name: "userManager"
+                });
+            },
+            //公告管理
+            noticeManager() {
+                this.$router.push({
+                    name: "notice"
+                });
+            },
         },
         created() {
             var that = this;
             document.title = that.$route.meta.title;
-        },
-        methods: {
-            findByPage(pageCode, pageSize) {
-                this.$http.post('/note/findByPage', {pageCode: pageCode, pageSize: pageSize}).then(result => {
-                    this.pageConf.totalPage = result.body.total;
-                    this.user = result.body.rows;
-                });
-            },
-            //pageSize 改变时触发的函数
-            handleSizeChange(val) {
-                this.findByPage(this.pageConf.pageCode, val);
-            },
-            //当前页改变时触发的函数
-            handleCurrentChange(val) {
-                this.findByPage(val, this.pageConf.pageSize);
-            },
-
-            // 获取所有数据
-            findAll() {
-                this.$http.post('/note/findAll').then(result => {
-                    this.user = result.body;
-                });
-            }
-        },
-        created() {
-            this.findAll();
-            this.findByPage(this.pageConf.pageCode, this.pageConf.pageSize);
         }
-
     }
 </script>
-
 <style scoped>
 
+    .el-menu{
+
+    }
+
+
 </style>
+

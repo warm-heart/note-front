@@ -1,60 +1,90 @@
 <template>
     <div class="userInfo">
 
-        <div class="block">
-            <el-timeline>
-                <el-timeline-item timestamp="2018/4/12" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/12 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-                <el-timeline-item timestamp="2018/4/3" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/3 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-                <el-timeline-item timestamp="2018/4/2" placement="top">
-                    <el-card>
-                        <h4>更新 Github 模板</h4>
-                        <p>王小虎 提交于 2018/4/2 20:46</p>
-                    </el-card>
-                </el-timeline-item>
-            </el-timeline>
-        </div>
+
+        <el-row>
+
+            <el-col>
+                <div style="float: left">
+                    {{user.userName}}
+                    {{user.userSex}}
+                    {{user.nickName}}
+                </div>
+
+            </el-col>
+        </el-row>
+
+        <el-divider ></el-divider>
+
+        <el-row>
+
+            <el-col :span="12">
+                <el-avatar
+                        class="avatar"
+                        :size="100"
+                        :src="userIcon"
+                ></el-avatar>
+
+                <el-popover
+                        placement="right"
+                        width="180">
+                    <el-upload
+                            class="avatar-uploader"
+                            action=""
+                            ref="upload"
+                            :http-request='updateUserAvatar'
+                            :show-file-list="false"
+                            :auto-upload="true"
+                            :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                    <p>点击头像框选择上传文件</p>
+                    <el-button type="primary" @click="submitUpload">点击上传
+                    </el-button>
+
+                    <el-button slot="reference" type="primary" size="mini" plain style="float: left;margin-top: 10px;
+                    margin-left: 10px">点击更改
+                    </el-button>
+
+                </el-popover>
+
+            </el-col>
 
 
-        <el-avatar
-                class="avatar"
-                :size="100"
-                :src="userIcon"
-        ></el-avatar>
+            <el-col :span="12">
 
-        <div>
-            <el-popover
-                    placement="left"
-                    width="180"
-            >
-                <el-upload
-                        class="avatar-uploader"
-                        action=""
-                        ref="upload"
-                        :http-request='updateUserAvatar'
-                        :show-file-list="false"
-                        :auto-upload="true"
-                        :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
-                <p>点击头像框选择上传文件</p>
-                <el-button type="primary" @click="submitUpload">点击上传
-                </el-button>
+                <div class="block">
+                    <el-timeline>
+                        <el-timeline-item timestamp="2018/4/12" placement="top">
+                            <el-card>
+                                <h4>更新 Github 模板</h4>
+                                <p>王小虎 提交于 2018/4/12 20:46</p>
+                            </el-card>
+                        </el-timeline-item>
+                        <el-timeline-item timestamp="2018/4/3" placement="top">
+                            <el-card>
+                                <h4>更新 Github 模板</h4>
+                                <p>王小虎 提交于 2018/4/3 20:46</p>
+                            </el-card>
+                        </el-timeline-item>
+                        <el-timeline-item timestamp="2019/4/12" placement="top">
+                            <el-card>
+                                <h4>更新 Github 模板</h4>
+                                <p>王小虎 提交于 2018/4/12 20:46</p>
+                            </el-card>
+                        </el-timeline-item>
+                        <el-timeline-item timestamp="2018/4/2" placement="top">
+                            <el-card>
+                                <h4>更新 Github 模板</h4>
+                                <p>王小虎 提交于 2018/4/2 20:46</p>
+                            </el-card>
+                        </el-timeline-item>
+                    </el-timeline>
+                </div>
 
-                <el-button slot="reference" type="success">修改头像</el-button>
-
-            </el-popover>
-        </div>
+            </el-col>
+        </el-row>
 
 
     </div>
@@ -96,6 +126,7 @@
                         var res = JSON.parse(JSON.stringify(response));
                         if (res.data.code == 200) {
                             localStorage.setItem("user-icon", res.data.data);
+                            that.userIcon = res.data.data;
                             that.$message({
                                 message: '上传成功',
                                 type: 'success',
@@ -151,7 +182,6 @@
     .userInfo {
         margin: 0 auto;
         text-align: center;
-
     }
 
     .avatar-uploader .el-upload {
@@ -179,6 +209,9 @@
         width: 178px;
         height: 178px;
         display: block;
+    }
 
+    .el-col {
+        float: left;
     }
 </style>

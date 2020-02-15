@@ -31,8 +31,8 @@
                                {{userName}} <i class="el-icon-caret-bottom"></i>
                             </span>
                                 <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="logout">退出登录</el-dropdown-item>
                                     <el-dropdown-item command="userDetail">个人中心</el-dropdown-item>
+                                    <el-dropdown-item command="logout">退出登录</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </div>
@@ -56,6 +56,24 @@
             <!-- 内容区 -->
             <el-main>
                 <template>
+
+
+                    <el-backtop target="" :bottom="10">
+                        <div
+                                style="{
+        height: 100%;
+        width: 100%;
+        background-color: #f2f5f6;
+        box-shadow: 0 0 6px rgba(0,0,0, .12);
+        text-align: center;
+        line-height: 40px;
+        color: #1989fa;
+      }"
+                        >
+                            up
+                        </div>
+
+                    </el-backtop>
                     <router-view></router-view>
 
                 </template>

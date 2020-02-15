@@ -2,7 +2,6 @@
 
     <div>
 
-
         <el-row>
 
             <el-col :span="6" :offset="14">
@@ -13,7 +12,7 @@
                 </el-input>
             </el-col>
             <el-col :span="4">
-                <el-button icon="el-icon-search" type="primary">点击搜索</el-button>
+                <el-button icon="el-icon-search" type="primary" @click="search">点击搜索</el-button>
             </el-col>
         </el-row>
 
@@ -162,7 +161,8 @@
                                     message: res.data.data,
                                     type: 'success',
                                     duration: 1500
-                                })
+                                });
+                                location.reload();
 
                             } else {
                                 that.$message({
@@ -186,7 +186,6 @@
 
 
             },
-
 
             cancelShareNote(noteId) {
                 this.$confirm('是否取消分享, 是否继续?', '提示', {
@@ -271,6 +270,28 @@
                       });*/
                 });
             },
+            search() {
+                let that = this;
+                this.axios.post('http://localhost:8080/note/search', qs.stringify({
+                    noteName: that.noteName,
+                }))
+                    .then(function (response) {
+                        var res = JSON.parse(JSON.stringify(response));
+                        if (res.data.code == 200) {
+                            that.notes = res.data.data;
+                        } else {
+                            that.$message({
+                                message: res.data.msg,
+                                type: 'warning',
+                                duration: 1500
+                            })
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert(error.response.data.msg)
+                    });
+            },
             findByPage(pageCode, pageSize) {
                 let that = this;
                 this.axios.post('http://localhost:8080/note/myNote', qs.stringify({
@@ -281,8 +302,7 @@
                         var res = JSON.parse(JSON.stringify(response));
                         if (res.data.code == 200) {
                             that.pageConf.totalPage = res.data.data.total;
-                            that.notes = res.data.data.noteList;
-                            console.log(that.notes);
+                            that.notes = res.data.data.notes;
 
                         } else {
                             that.$message({

@@ -3,31 +3,64 @@
 
         <div v-for="note in notes">
             <el-card class="box-card" shadow="hover">
-                <span>{{note.noteTitle}}</span>
+                <span class="title">{{note.noteTitle}}</span>
 
-                <el-row>
-                    <div v-if="!note.noteStatus">
-                        <el-button style="float: right; padding: 3px 0" type="text" @click="editNote(note.noteId)">编辑
-                        </el-button>
-                        <el-button style="float: right; padding: 3px 0" type="text" @click="noteDetail(note.noteId)">
-                            查看详情
-                        </el-button>
-                        <el-button style="float: right; padding: 3px 0" type="text" @click="removeNote(note.noteId)">删除
-                        </el-button>
-                    </div>
-                    <div v-else> 您的文章被禁用，请联系管理员</div>
-                </el-row>
-                <el-row>
-                    <div v-html='note.noteContext.substring(0,200).concat("......")' class="content"></div>
-                </el-row>
+                <template v-if="!note.noteStatus">
 
-                <el-row class="description">
-                    At time/{{note.updateTime.substring(0,10)}}
-                    <el-button v-if="note.shareStatus">取消分享</el-button>
-                    <el-button v-else>分享</el-button>
-                </el-row>
+                    <el-row>
+                        <el-col>
+                            <div v-html='note.noteContext.substring(0,200).concat("......")' class="content">
+
+                            </div>
+                        </el-col>
+                    </el-row>
 
 
+                    <el-row>
+                        <el-col :span="7">
+                            <span class="description"> At time/{{note.updateTime.substring(0,10)}}</span>
+                        </el-col>
+
+                        <template v-if="note.shareStatus">
+
+                            <el-button size="mini" type="success" style="margin-bottom: -4px"
+                                       @click="cancelShareNote(note.noteId)">取消分享
+                            </el-button>
+
+                        </template>
+                        <template v-else>
+
+                            <el-button size="mini" type="primary" icon="el-icon-share"
+                                       @click="shareNote(note.noteId)">分享
+
+                            </el-button>
+
+                        </template>
+
+                        <el-col :span="2" :offset="8">
+                            <el-button type="primary" size="mini" plain
+                                       @click="editNote(note.noteId)">
+                                <i class="el-icon-edit">编辑</i>
+                            </el-button>
+                        </el-col>
+                        <el-col :span="2">
+                            <el-button type="success" size="mini" plain
+                                       @click="noteDetail(note.noteId)"><i class="el-icon-view"> 详情</i>
+                            </el-button>
+                        </el-col>
+                        <el-col :span="2">
+                            <el-button @click="removeNote(note.noteId)"
+                                       size="mini" type="danger" plain>
+                                <i class="el-icon-delete"> 删除</i>
+                            </el-button>
+                        </el-col>
+                    </el-row>
+                </template>
+
+
+                <template v-else>
+                    <div style="margin-top: 20px;font-size: 20px">您的文章被封禁，请联系管理员</div>
+                </template>
             </el-card>
 
         </div>
@@ -64,31 +97,44 @@
                 })
             },
             removeNote(noteId) {
-                let that = this;
-                this.axios.post('http://localhost:8080/note/removeNote', qs.stringify({
-                    noteId: noteId,
-                }))
-                    .then(function (response) {
-                        var res = JSON.parse(JSON.stringify(response));
-                        if (res.data.code == 200) {
-                            that.$message({
-                                message: res.data.data,
-                                type: 'success',
-                                duration: 1500
-                            })
+                this.$confirm('是否删除笔记, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let that = this;
+                    this.axios.post('http://localhost:8080/note/removeNote', qs.stringify({
+                        noteId: noteId,
+                    }))
+                        .then(function (response) {
+                            var res = JSON.parse(JSON.stringify(response));
+                            if (res.data.code == 200) {
+                                that.$message({
+                                    message: res.data.data,
+                                    type: 'success',
+                                    duration: 1500
+                                });
+                                location.reload();
 
-                        } else {
-                            that.$message({
-                                message: res.data.msg,
-                                type: 'warning',
-                                duration: 1500
-                            })
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        alert(error.response.data.msg)
+                            } else {
+                                that.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    duration: 1500
+                                })
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert(error.response.data.msg)
+                        });
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
                     });
+                });
             },
 
             getByCategoryIdAndUserId(categoryId) {

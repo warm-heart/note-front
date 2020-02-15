@@ -8,16 +8,23 @@ import myCollection from "@/components/note/myCollection";
 import noteDetail from "@/components/note/NoteDetail";
 import updateNote from "@/components/note/updateNote";
 import compareNote from "@/components/note/compareNote";
+/*笔记分类*/
 import myNotebook from "@/components/notebook/myNotebook";
 import notebookInfo from "@/components/notebook/notebookInfo";
 import createNotebook from "@/components/notebook/createNotebook";
+/*用户信息*/
 import userInfo from "@/components/user/userInfo";
 import resetPassword from "@/components/user/resetPassword";
+/*登陆注册*/
 import login from "@/components/user/login";
 import register from "@/components/user/register";
+/*公告*/
 import notice from "@/components/user/notice";
-
-
+/*admin start*/
+import admin from "@/components/admin/admin";
+import noteManager from "@/components/admin/noteManager";
+import userManager from "@/components/admin/userManager";
+import adminNotice from "@/components/admin/notice";
 
 Vue.use(Router);
 
@@ -31,8 +38,6 @@ export default new Router({
                 title: "首页"
             },
         },
-
-
         {
             path: "/login",
             name: "login",
@@ -165,8 +170,46 @@ export default new Router({
                     }
                 },
             ]
-        }
+        },
+
+        {
+            path: "/admin",
+            name: "admin",
+            component: admin,
+            meta: {
+                title: "管理员",
+                requireAuth:true,
+            },
+            children:[
+                {
+                    path:"userManager",
+                    name:"userManager",
+                    component:userManager,
+                    meta:{
+                        title:"用户管理",
+                        requireAuth:true
+                    }
+                },
+                {
+                    path:"noteManager",
+                    name:"noteManager",
+                    component:noteManager,
+                    meta:{
+                        title:"笔记管理",
+                        requireAuth:true
+                    }
+                },
+                {
+                    path:"notice",
+                    name:"notice",
+                    component:adminNotice,
+                    meta:{
+                        title:"公告管理",
+                        requireAuth:true
+                    }
+                },
+            ]
+
+        },
     ]
 });
-
-

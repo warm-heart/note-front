@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <el-button type="primary" @click="toCreateNoteBook" class="add">前往新增笔记分类</el-button>
+        <el-button type="primary" @click="toCreateNoteBook" class="add" icon="el-icon-plus">前往新增笔记分类</el-button>
 
         <!--修改笔记-->
         <el-drawer
@@ -37,7 +37,8 @@
         <el-table
                 :data="categoryList.filter(data => !search || data.categoryName.toLowerCase().includes(search.toLowerCase()))"
                 style="width: 100%"
-                height="420">
+                stripe="true"
+                >
             <el-table-column
                     type="index"
                     fixed
