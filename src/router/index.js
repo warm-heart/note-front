@@ -24,7 +24,8 @@ import notice from "@/components/user/notice";
 import admin from "@/components/admin/admin";
 import noteManager from "@/components/admin/noteManager";
 import userManager from "@/components/admin/userManager";
-import adminNotice from "@/components/admin/notice";
+import noticeManager from "@/components/admin/noticeManager";
+import createNotice from "@/components/admin/createNotice";
 
 Vue.use(Router);
 
@@ -75,7 +76,7 @@ export default new Router({
                     component: myNote,
                     meta: {
                         title: "我的笔记",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -84,7 +85,7 @@ export default new Router({
                     component: createNote,
                     meta: {
                         title: "新建笔记",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -93,7 +94,7 @@ export default new Router({
                     component: updateNote,
                     meta: {
                         title: "修改笔记",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
 
@@ -103,7 +104,7 @@ export default new Router({
                     component: noteDetail,
                     meta: {
                         title: "笔记详情",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -112,7 +113,7 @@ export default new Router({
                     component: myCollection,
                     meta: {
                         title: "我的收藏",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -121,7 +122,7 @@ export default new Router({
                     component: myNotebook,
                     meta: {
                         title: "我的笔记本",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -130,7 +131,7 @@ export default new Router({
                     component: createNotebook,
                     meta: {
                         title: "新建笔记本",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -139,7 +140,7 @@ export default new Router({
                     component: notebookInfo,
                     meta: {
                         title: "笔记本内容",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -148,7 +149,7 @@ export default new Router({
                     component: resetPassword,
                     meta: {
                         title: "重置密码",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -157,7 +158,7 @@ export default new Router({
                     component: userInfo,
                     meta: {
                         title: "个人信息",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
                 {
@@ -166,7 +167,7 @@ export default new Router({
                     component: notice,
                     meta: {
                         title: "系统公告",
-                        requireAuth:true,
+                        requireAuth: true,
                     }
                 },
             ]
@@ -178,34 +179,43 @@ export default new Router({
             component: admin,
             meta: {
                 title: "管理员",
-                requireAuth:true,
+                requireAuth: true,
             },
-            children:[
+            children: [
                 {
-                    path:"userManager",
-                    name:"userManager",
-                    component:userManager,
-                    meta:{
-                        title:"用户管理",
-                        requireAuth:true
+                    path: "userManager",
+                    name: "userManager",
+                    component: userManager,
+                    meta: {
+                        title: "用户管理",
+                        requireAuth: true
                     }
                 },
                 {
-                    path:"noteManager",
-                    name:"noteManager",
-                    component:noteManager,
-                    meta:{
-                        title:"笔记管理",
-                        requireAuth:true
+                    path: "noteManager",
+                    name: "noteManager",
+                    component: noteManager,
+                    meta: {
+                        title: "笔记管理",
+                        requireAuth: true
                     }
                 },
                 {
-                    path:"notice",
-                    name:"notice",
-                    component:adminNotice,
-                    meta:{
-                        title:"公告管理",
-                        requireAuth:true
+                    path: "noticeManager",
+                    name: "noticeManager",
+                    component: noticeManager,
+                    meta: {
+                        title: "公告管理",
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: "createNotice",
+                    name: "createNotice",
+                    component: createNotice,
+                    meta: {
+                        title: "创建公告",
+                        requireAuth: true
                     }
                 },
             ]

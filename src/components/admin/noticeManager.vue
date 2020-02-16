@@ -6,14 +6,20 @@
                 :data="users.filter(data => !search || data.userName.toLowerCase().includes(search.toLowerCase()))"
                 style="width: 100%"
                 stripe
-                border
                 highlight-current-row
 
         >
-            <el-table-column
-                    type="index"
-                    fixed
-                    width="80">
+
+
+            <el-table-column type="expand" fixed>
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand">
+                        <el-form-item label="商品名称">
+                            <span>dadakdsnafnfgfbgfkkkkkkkkkkkkkkkkkkjjkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</span>
+                        </el-form-item>
+
+                    </el-form>
+                </template>
             </el-table-column>
 
             <el-table-column
@@ -100,16 +106,12 @@
             </el-pagination>
         </div>
     </div>
-
 </template>
 
 <script>
-    import qs from 'qs';
-
+    import qs from 'qs'
     export default {
-        inject: ["reload"],
-        name: "userManager",
-
+        name: "noticeManager",
         data() {
             return {
                 search: '',
@@ -120,7 +122,7 @@
                     pageCode: 1, //当前页
                     pageSize: 5, //每页显示的记录数
                     totalPage: null, //总记录数
-                    pageOption: [1, 5, 10, 20], //分页选项
+                    pageOption: [20, 40, 50], //分页选项
                     handleCurrentChange: function () {
                         console.log("页码改变了");
                     }
@@ -171,7 +173,7 @@
                                     type: 'success',
                                     duration: 1500
                                 });
-                                //location.reload();
+                                location.reload();
 
                             } else {
                                 that.$message({
@@ -213,7 +215,7 @@
                                     type: 'success',
                                     duration: 1500
                                 });
-                                // location.reload();
+                                location.reload();
 
                             } else {
                                 that.$message({
@@ -250,11 +252,24 @@
         },
         created() {
             this.findByPage(this.pageConf.pageCode, this.pageConf.pageSize);
-        },
-
+        }
     }
 </script>
 
 <style scoped>
+
+/*
+    .demo-table-expand {
+        font-size: 0;
+    }
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 50%;
+    }*/
 
 </style>

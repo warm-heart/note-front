@@ -4,9 +4,11 @@
         <el-header>
             <el-row>
                 <el-col :span="2" :offset="1">
+
                     <!-- <el-image style="width: 210px; height: 54px" :src="./assets/note.png"></el-image>-->
                     <!--<img alt="Vue logo" style="width: 210px; height: 58px;" src="../assets/logo2.png">-->
                     在线笔记系统
+
                 </el-col>
 
                 <template v-if="!isLogin">
@@ -50,7 +52,8 @@
         <el-container>
             <!-- 侧边栏 -->
             <el-aside width="260px">
-                <Aside/>
+                <Aside></Aside>
+
             </el-aside>
 
             <!-- 内容区 -->
@@ -61,23 +64,22 @@
                     <el-backtop target="" :bottom="10">
                         <div
                                 style="{
-        height: 100%;
-        width: 100%;
-        background-color: #f2f5f6;
-        box-shadow: 0 0 6px rgba(0,0,0, .12);
-        text-align: center;
-        line-height: 40px;
-        color: #1989fa;
-      }"
+                                           height: 100%;
+                                           width: 100%;
+                                           background-color: #f2f5f6;
+                                           box-shadow: 0 0 6px rgba(0,0,0, .12);
+                                           text-align: center;
+                                           line-height: 40px;
+                                           color: #1989fa;
+                                           }"
                         >
                             up
                         </div>
 
                     </el-backtop>
-                    <router-view></router-view>
 
                 </template>
-
+                <router-view></router-view>
             </el-main>
         </el-container>
     </el-container>
@@ -103,6 +105,7 @@
                 userIcon: localStorage.getItem("user-icon"),
                 userName: localStorage.getItem("user-name"),
                 fits: ["fill", "contain", "cover", "none", "scale-down"],
+                isCollapse: true,
 
             };
         },
@@ -110,11 +113,9 @@
 
 
             handleCommand(command) {
-
                 if (command == 'logout') {
                     this.logout();
                 }
-
                 if (command == 'userDetail') {
                     this.$router.push({
                         name: "userInfo"

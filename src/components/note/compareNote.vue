@@ -184,10 +184,12 @@
             },
             //pageSize 改变时触发的函数
             handleSizeChange(val) {
+                this.pageConf.pageSize = val;
                 this.findByPage(this.pageConf.pageCode, val);
             },
             //当前页改变时触发的函数
             handleCurrentChange(val) {
+                this.pageConf.pageCode = val;
                 this.findByPage(val, this.pageConf.pageSize);
             },
         },

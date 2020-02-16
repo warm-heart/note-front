@@ -7,7 +7,7 @@
             </el-form-item>
 
             <el-form-item label="密码" prop="password">
-                <el-input v-model="user.password"></el-input>
+                <el-input v-model="user.password" show-password></el-input>
             </el-form-item>
 
             <el-form-item>
@@ -15,7 +15,6 @@
                 <el-button @click="resetForm('user')">重置</el-button>
             </el-form-item>
         </el-form>
-
 
     </div>
 

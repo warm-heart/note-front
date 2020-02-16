@@ -13,8 +13,8 @@
             <el-menu-item index="1" @click="userManager">用户管理</el-menu-item>
             <el-submenu index="2">
                 <template slot="title">公告管理</template>
-                <el-menu-item index="2-1">查看公告</el-menu-item>
-                <el-menu-item index="2-2">创建公告</el-menu-item>
+                <el-menu-item index="2-1" @click="noticeManager">查看公告</el-menu-item>
+                <el-menu-item index="2-2" @click="createNotice">创建公告</el-menu-item>
                 <el-menu-item index="2-3">选项3</el-menu-item>
                 <el-submenu index="2-4">
                     <template slot="title">选项4</template>
@@ -24,12 +24,14 @@
                 </el-submenu>
             </el-submenu>
             <el-menu-item index="3" disabled>消息中心</el-menu-item>
-            <el-menu-item index="4"><router-link to="/admin/noteManager">笔记管理</router-link></el-menu-item>
+            <el-menu-item index="4">
+                <router-link to="/admin/noteManager">笔记管理</router-link>
+            </el-menu-item>
 
         </el-menu>
 
 
-        <router-view></router-view>
+        <router-view v-if="isReload"></router-view>
 
     </div>
 </template>
@@ -39,10 +41,23 @@
 
     export default {
         name: "admin",
+        provide(){
+            return{
+                reload:this.reload
+            }
+        },
         data() {
-            return {}
+            return {
+                isReload:true,
+            }
         },
         methods: {
+            reload(){
+                this.isReload=false
+                this.$nextTick(()=>{
+                    this.isReload=true;
+                })
+            },
             handleSelect(key, keyPath) {
                 console.log();
             },
@@ -56,7 +71,13 @@
             //公告管理
             noticeManager() {
                 this.$router.push({
-                    name: "notice"
+                    name: "noticeManager"
+                });
+            },
+            //创建公告
+            createNotice() {
+                this.$router.push({
+                    name: "createNotice"
                 });
             },
         },
@@ -68,8 +89,12 @@
 </script>
 <style scoped>
 
-    .el-menu{
+    .router-link-active {
+        text-decoration: none;
+    }
 
+    a {
+        text-decoration: none;
     }
 
 

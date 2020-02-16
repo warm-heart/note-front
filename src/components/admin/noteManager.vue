@@ -26,11 +26,18 @@
                     prop="shareStatus"
                     label="shareStatus"
                     width="200rem">
+                <template slot-scope="scope">
+                    <p v-if="notes[scope.$index].shareStatus==0">未分享</p>
+                    <p v-else="notes[scope.$index].shareStatus==1">已分享</p>
+                </template>
             </el-table-column>
             <el-table-column
-                    prop="noteStatus"
-                    label="noteStatus"
+                    label="笔记状态"
                     width="150rem">
+                <template slot-scope="scope">
+                    <p v-if="notes[scope.$index].noteStatus==0">正常</p>
+                    <p v-else="notes[scope.$index].noteStatus==1">待解封</p>
+                </template>
             </el-table-column>
 
             <el-table-column
@@ -96,7 +103,7 @@
                 pageConf: {
                     //设置一些初始值(会被覆盖)
                     pageCode: 1, //当前页
-                    pageSize: 4, //每页显示的记录数
+                    pageSize: 5, //每页显示的记录数
                     totalPage: null, //总记录数
                     pageOption: [5, 10, 20], //分页选项
                     handleCurrentChange: function () {
@@ -133,10 +140,12 @@
             },
             //pageSize 改变时触发的函数
             handleSizeChange(val) {
+                this.pageConf.pageSize = val;
                 this.findByPage(this.pageConf.pageCode, val);
             },
             //当前页改变时触发的函数
             handleCurrentChange(val) {
+                this.pageConf.pageCode = val;
                 this.findByPage(val, this.pageConf.pageSize);
             },
         },
