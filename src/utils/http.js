@@ -5,8 +5,8 @@ import router from '../router/index'
 import {Loading, Message} from 'element-ui';
 
 // axios 配置
-axios.defaults.timeout = 15000;
-axios.defaults.retry = 2;
+axios.defaults.timeout = 30000 ;
+axios.defaults.retry = 0;
 axios.defaults.withCredentials = true;
 
 //开始加载动画
@@ -48,6 +48,7 @@ axios.interceptors.response.use(
         return response
     },
     error => {
+        endLoading();
         if (error.response) {
             switch (error.response.status) {
                 case 401:
@@ -57,7 +58,7 @@ axios.interceptors.response.use(
                     store.commit(globalVal.LOGOUT);
                     Message.warning({
                         //message: '您好，登录已过期，请重新登录',
-                        message:error.response.data.msg,
+                        message: error.response.data.msg,
                         showClose: true,
                         duration: 2000
                     });

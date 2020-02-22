@@ -146,7 +146,6 @@
                         var res = JSON.parse(JSON.stringify(response));
                         if (res.data.code == 200) {
                             that.notes = res.data.data;
-                            console.log(that.notes);
                         } else {
                             that.$message({
                                 message: "这里还没有您的笔记，赶快去创建把！",

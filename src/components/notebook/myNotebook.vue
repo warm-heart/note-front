@@ -3,7 +3,7 @@
 
         <el-button type="primary" @click="toCreateNoteBook" class="add" icon="el-icon-plus">前往新增笔记分类</el-button>
 
-        <!--修改笔记-->
+        <!--修改笔记分类-->
         <el-drawer
                 title=""
                 :before-close="handleClose"
@@ -37,8 +37,8 @@
         <el-table
                 :data="categoryList.filter(data => !search || data.categoryName.toLowerCase().includes(search.toLowerCase()))"
                 style="width: 100%"
-                stripe="true"
-                >
+                :stripe=true
+        >
             <el-table-column
                     type="index"
                     fixed
@@ -86,8 +86,8 @@
                                icon="el-icon-delete">删除
                     </el-button>
                     <el-button size="mini"
-
-                               type="success" @click="openNoteBook(scope.$index, scope.row)">打开
+                               icon="el-icon-view"
+                               type="success" @click="openNoteBook(scope.$index, scope.row)">查看
                     </el-button>
                 </template>
             </el-table-column>
@@ -103,7 +103,7 @@
         name: "myNotebook",
         data() {
             return {
-                //开启页面时不弹出完善信息框
+                //开启页面时不弹出修改框
                 dialog: false,
                 categoryList: [],
                 search: '',
@@ -128,8 +128,6 @@
         methods: {
 
             Edit(index, row) {
-                //console.log(index, row);
-                console.log(row.categoryId)
                 this.noteCategory = row;
                 this.dialog = true;
 
@@ -227,7 +225,7 @@
                                     type: 'success',
                                     duration: 1500
                                 });
-                               location.reload();
+                                location.reload();
 
                             } else {
                                 that.$message({

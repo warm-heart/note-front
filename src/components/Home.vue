@@ -167,16 +167,17 @@
                     });
                 });
             },
-            //登录
+            //注册
             toRegister() {
                 this.$router.push({
                     name: "register"
                 });
             },
-            //注册
+            //登录
             toLogin() {
                 this.$router.push({
                     name: "login"
+
                 });
             },
         },

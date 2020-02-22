@@ -180,7 +180,6 @@
                         var res = JSON.parse(JSON.stringify(response));
                         if (res.data.code == 200) {
                             that.categoryList = res.data.data;
-                            console.log(that.categoryList);
                         } else {
                             that.$message({
                                 message: res.data.msg,

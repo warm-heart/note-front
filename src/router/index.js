@@ -15,34 +15,38 @@ import createNotebook from "@/components/notebook/createNotebook";
 /*用户信息*/
 import userInfo from "@/components/user/userInfo";
 import resetPassword from "@/components/user/resetPassword";
+import findPassword from "@/components/user/findPassword";
 /*登陆注册*/
-import login from "@/components/user/login";
-import register from "@/components/user/register";
+import loginAndRegister from "@/components/user/loginAndRegister";
 /*公告*/
 import notice from "@/components/user/notice";
+import noticeDetail from "@/components/user/noticeDetail";
+
 /*admin start*/
 import admin from "@/components/admin/admin";
 import noteManager from "@/components/admin/noteManager";
+import adminNoteDetail from "@/components/admin/adminNoteDetail";
 import userManager from "@/components/admin/userManager";
 import noticeManager from "@/components/admin/noticeManager";
 import createNotice from "@/components/admin/createNotice";
+import adminNoticeDetail from "@/components/admin/adminNoticeDetail";
+import adminInfo from "@/components/admin/adminInfo";
 
 Vue.use(Router);
 
 export default new Router({
     routes: [
+
         {
             path: "/",
-            name: "home",
-            component: Home,
-            meta: {
-                title: "首页"
-            },
+            redirect: {
+                name: "home"
+            }
         },
         {
             path: "/login",
             name: "login",
-            component: login,
+            component: loginAndRegister,
             meta: {
                 title: "登录"
             },
@@ -51,9 +55,17 @@ export default new Router({
         {
             path: "/register",
             name: "register",
-            component: register,
+            component: loginAndRegister,
             meta: {
                 title: "注册"
+            },
+        },
+        {
+            path: "/findPassword",
+            name: "findPassword",
+            component: findPassword,
+            meta: {
+                title: "找回密码"
             },
         },
 
@@ -61,6 +73,9 @@ export default new Router({
             path: "/home",
             name: "home",
             component: Home,
+            meta: {
+                title: '首页'
+            },
             children: [
                 {
                     path: "compareNote",
@@ -170,18 +185,41 @@ export default new Router({
                         requireAuth: true,
                     }
                 },
+                {
+                    path: "noticeDetail",
+                    name: "noticeDetail",
+                    component: noticeDetail,
+                    meta: {
+                        title: "公告详情",
+                        requireAuth: true,
+                    }
+                },
             ]
         },
 
         {
             path: "/admin",
-            name: "admin",
             component: admin,
             meta: {
                 title: "管理员",
                 requireAuth: true,
             },
             children: [
+                {
+                    path: "/",
+                    redirect: {
+                        name: 'adminInfo'
+                    }
+                },
+                {
+                    path: "adminInfo",
+                    name: "adminInfo",
+                    component: adminInfo,
+                    meta: {
+                        title: "管理员信息",
+                        requireAuth: true
+                    }
+                },
                 {
                     path: "userManager",
                     name: "userManager",
@@ -201,6 +239,16 @@ export default new Router({
                     }
                 },
                 {
+                    path: "adminNoteDetail",
+                    name: "adminNoteDetail",
+                    component: adminNoteDetail,
+                    meta: {
+                        title: "笔记详情",
+                        requireAuth: true
+                    }
+                },
+
+                {
                     path: "noticeManager",
                     name: "noticeManager",
                     component: noticeManager,
@@ -215,6 +263,15 @@ export default new Router({
                     component: createNotice,
                     meta: {
                         title: "创建公告",
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: "adminNoticeDetail",
+                    name: "adminNoticeDetail",
+                    component: adminNoticeDetail,
+                    meta: {
+                        title: "公告详情",
                         requireAuth: true
                     }
                 },

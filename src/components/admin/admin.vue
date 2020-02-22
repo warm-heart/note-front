@@ -2,6 +2,7 @@
 
     <div>
 
+
         <el-menu
 
                 class="el-menu-demo"
@@ -14,7 +15,7 @@
             <el-submenu index="2">
                 <template slot="title">公告管理</template>
                 <el-menu-item index="2-1" @click="noticeManager">查看公告</el-menu-item>
-                <el-menu-item index="2-2" @click="createNotice">创建公告</el-menu-item>
+                <el-menu-item index="2-2" @click="createNotice">发布公告</el-menu-item>
                 <el-menu-item index="2-3">选项3</el-menu-item>
                 <el-submenu index="2-4">
                     <template slot="title">选项4</template>
@@ -23,43 +24,84 @@
                     <el-menu-item index="2-4-3">选项3</el-menu-item>
                 </el-submenu>
             </el-submenu>
-            <el-menu-item index="3" disabled>消息中心</el-menu-item>
-            <el-menu-item index="4">
+
+            <el-menu-item index="3">
                 <router-link to="/admin/noteManager">笔记管理</router-link>
             </el-menu-item>
+            <el-submenu index="4">
+                <template slot="title">个人中心</template>
+                <el-menu-item index="4-1" @click="logout">退出登录</el-menu-item>
+                <el-menu-item index="4-2"  @click="adminInfo">个人中心</el-menu-item>
+
+            </el-submenu>
+
 
         </el-menu>
 
 
-        <router-view v-if="isReload"></router-view>
+        <router-view ></router-view>
 
     </div>
 </template>
 
 <script>
-    import qs from 'qs'
+    import qs from 'qs';
+    import globalVal from '../../utils/global_val';
 
     export default {
         name: "admin",
-        provide(){
-            return{
-                reload:this.reload
-            }
-        },
         data() {
             return {
-                isReload:true,
+
+                token:localStorage.getItem("token"),
             }
         },
         methods: {
-            reload(){
-                this.isReload=false
-                this.$nextTick(()=>{
-                    this.isReload=true;
-                })
-            },
+
             handleSelect(key, keyPath) {
                 console.log();
+            },
+            logout() {
+                this.$confirm('确定退出?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let that = this;
+                    this.axios.post('http://localhost:8080/logout', qs.stringify({
+                        'token': that.token
+                    }))
+                        .then(function (response) {
+                            var res = JSON.parse(JSON.stringify(response));
+                            if (res.data.code == 200) {
+                                that.$store.commit(globalVal.LOGOUT);
+                                localStorage.removeItem("user-icon");
+                                localStorage.removeItem("user-name");
+                                that.$message({
+                                    type: 'success',
+                                    message: res.data.data,
+                                    duration: 1500
+                                });
+                                that.$router.push({
+                                    path: '/login'
+                                });
+                            } else {
+                                that.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    duration: 1500
+                                })
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消退出'
+                    });
+                });
             },
             //用户管理
             userManager() {
@@ -78,6 +120,12 @@
             createNotice() {
                 this.$router.push({
                     name: "createNotice"
+                });
+            },
+            //创建公告
+            adminInfo() {
+                this.$router.push({
+                    name: "adminInfo"
                 });
             },
         },

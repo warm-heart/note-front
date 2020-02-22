@@ -18,13 +18,22 @@
             <el-table-column
 
                     prop="noteTitle"
-                    label="noteTitle"
+                    label="笔记标题"
                     sortable
-                    width="150rem">
+                    width="250rem">
+
             </el-table-column>
             <el-table-column
+
+                    prop="noteDescription"
+                    label="笔记描述"
+                    sortable
+                    width="250rem">
+            </el-table-column>
+
+            <el-table-column
                     prop="shareStatus"
-                    label="shareStatus"
+                    label="是否分享"
                     width="200rem">
                 <template slot-scope="scope">
                     <p v-if="notes[scope.$index].shareStatus==0">未分享</p>
@@ -32,7 +41,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="笔记状态"
+                    label="是否封禁"
                     width="150rem">
                 <template slot-scope="scope">
                     <p v-if="notes[scope.$index].noteStatus==0">正常</p>
@@ -61,13 +70,16 @@
                     <el-button
 
                             size="mini"
-                            @click="Lock(scope.$index, scope.row)">封禁
+                            @click="lockNote(scope.$index, scope.row)">封禁
                     </el-button>
 
-                    <el-button @click="deBlock(scope.$index, scope.row)" type="danger" size="small"
+                    <el-button @click="deBlockNote(scope.$index, scope.row)" type="danger" size="small"
                     >解封
                     </el-button>
 
+                    <el-button @click="adminNoteDetail(scope.$index, scope.row)" type="danger" size="small"
+                    >查看
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -147,6 +159,94 @@
             handleCurrentChange(val) {
                 this.pageConf.pageCode = val;
                 this.findByPage(val, this.pageConf.pageSize);
+            },
+            adminNoteDetail(index, row) {
+                this.$router.push({
+                    name: 'adminNoteDetail',
+                    query: {noteId: row.noteId}
+
+                })
+            },
+            lockNote(index, row) {
+                this.$confirm('是否封禁, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let that = this;
+                    this.axios.post('http://localhost:8080/admin/lockNote', qs.stringify({
+                        noteId: row.noteId,
+                    }))
+                        .then(function (response) {
+                            var res = JSON.parse(JSON.stringify(response));
+                            if (res.data.code == 200) {
+                                that.$message({
+                                    message: res.data.data,
+                                    type: 'success',
+                                    duration: 1500
+                                });
+                                //location.reload();
+
+                            } else {
+                                that.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    duration: 1500
+                                })
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert(error.response.data.msg)
+                        });
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消封禁'
+                    });
+                });
+            },
+            deBlockNote(index, row) {
+                this.$confirm('是否解封, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let that = this;
+                    this.axios.post('http://localhost:8080/admin/deBlockNote', qs.stringify({
+                        noteId: row.noteId,
+                    }))
+                        .then(function (response) {
+                            var res = JSON.parse(JSON.stringify(response));
+                            if (res.data.code == 200) {
+                                that.$message({
+                                    message: res.data.data,
+                                    type: 'success',
+                                    duration: 1500
+                                });
+                                location.reload();
+
+                            } else {
+                                that.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    duration: 1500
+                                })
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert(error.response.data.msg)
+                        });
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消解封'
+                    });
+                });
+
             },
         },
         created() {

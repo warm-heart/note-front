@@ -107,8 +107,6 @@
     import qs from 'qs';
 
     export default {
-        inject: ["reload"],
-        name: "userManager",
 
         data() {
             return {
@@ -120,7 +118,7 @@
                     pageCode: 1, //当前页
                     pageSize: 5, //每页显示的记录数
                     totalPage: null, //总记录数
-                    pageOption: [1, 5, 10, 20], //分页选项
+                    pageOption: [5, 10, 20], //分页选项
                     handleCurrentChange: function () {
                         console.log("页码改变了");
                     }
@@ -150,7 +148,7 @@
                     })
                     .catch(function (error) {
                         console.log(error);
-                        alert(error.response.data.msg)
+                        alert(error.response.data.msg);
                     });
             },
             lockUser(index, row) {
@@ -183,7 +181,7 @@
                         })
                         .catch(function (error) {
                             console.log(error);
-                            alert(error.response.data.msg)
+                            alert(error.response.data.msg);
                         });
 
                 }).catch(() => {
@@ -192,8 +190,6 @@
                         message: '已取消封禁'
                     });
                 });
-
-
             },
             deBlockUser(index, row) {
                 this.$confirm('是否解封, 是否继续?', '提示', {
@@ -213,7 +209,7 @@
                                     type: 'success',
                                     duration: 1500
                                 });
-                                // location.reload();
+                                 location.reload();
 
                             } else {
                                 that.$message({
@@ -225,7 +221,7 @@
                         })
                         .catch(function (error) {
                             console.log(error);
-                            alert(error.response.data.msg)
+                            alert(error.response.data.msg);
                         });
 
                 }).catch(() => {
