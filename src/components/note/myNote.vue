@@ -1,4 +1,4 @@
-<template xmlns:el-col="http://www.w3.org/1999/html">
+<template>
 
     <div>
 
@@ -19,7 +19,7 @@
 
         <div v-for="note in notes">
             <el-card class="box-card" shadow="hover">
-                <span class="title">{{note.noteTitle}}</span>
+                <span class="font-note-title">{{note.noteTitle}}</span>
 
                 <template v-if="!note.noteStatus">
 
@@ -33,43 +33,47 @@
 
 
                     <el-row>
-                        <el-col :span="7">
-                            <span class="description"> At time/{{note.updateTime.substring(0,10)}}</span>
+                        <el-col :span="6">
+                            <span class="description"> 更新于&nbsp;{{note.updateTime.substring(0,10)}}</span>
                         </el-col>
 
-                        <template v-if="note.shareStatus">
 
-                            <el-button size="mini" type="success" style="margin-bottom: -4px"
-                                       @click="cancelShareNote(note.noteId)">取消分享
-                            </el-button>
+                        <el-col :span="8" :offset="10">
 
-                        </template>
-                        <template v-else>
+                            <div style="display: flex; justify-content: flex-end">
+                                <template v-if="note.shareStatus">
 
-                            <el-button size="mini" type="primary" icon="el-icon-share"
-                                       @click="shareNote(note.noteId)">分享
+                                    <el-button size="mini" type="success"
+                                               @click="cancelShareNote(note.noteId)">取消分享
+                                    </el-button>
 
-                            </el-button>
+                                </template>
+                                <template v-else>
 
-                        </template>
+                                    <el-button size="mini" type="primary" icon="el-icon-share"
+                                               @click="shareNote(note.noteId)">分享
 
-                        <el-col :span="2" :offset="8">
-                            <el-button type="primary" size="mini" plain
-                                       @click="editNote(note.noteId)">
-                                <i class="el-icon-edit">编辑</i>
-                            </el-button>
+                                    </el-button>
+
+                                </template>
+                                <el-button type="primary" size="mini" plain
+                                           @click="editNote(note.noteId)">
+                                    <i class="el-icon-edit">编辑</i>
+                                </el-button>
+
+
+                                <el-button type="success" size="mini" plain
+                                           @click="noteDetail(note.noteId)"><i class="el-icon-view"> 详情</i>
+                                </el-button>
+
+
+                                <el-button @click="removeNote(note.noteId)"
+                                           size="mini" type="danger" plain>
+                                    <i class="el-icon-delete"> 删除</i>
+                                </el-button>
+                            </div>
                         </el-col>
-                        <el-col :span="2">
-                            <el-button type="success" size="mini" plain
-                                       @click="noteDetail(note.noteId)"><i class="el-icon-view"> 详情</i>
-                            </el-button>
-                        </el-col>
-                        <el-col :span="2">
-                            <el-button @click="removeNote(note.noteId)"
-                                       size="mini" type="danger" plain>
-                                <i class="el-icon-delete"> 删除</i>
-                            </el-button>
-                        </el-col>
+
                     </el-row>
                 </template>
 
@@ -341,26 +345,24 @@
     .description {
         font-size: 15px;
         float: left;
-        color: #2f2d2d;
-        margin-top: 15px;
+        color: #999;
+        margin-top: 10px;
     }
 
     .content {
         float: left;
         text-align: left;
+        font-size: 15px;
     }
 
     .box-card {
-        margin-top: 10px;
+        margin-top: 8px;
     }
 
     .el-row {
-        margin-top: 30px;
+        margin-top: 15px;
         text-align: left;
     }
 
-    .title {
-        font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;;
-        font-size: 20px;
-    }
+
 </style>

@@ -22,7 +22,7 @@
             <!-- 子菜单：用户管理 -->
             <el-submenu index="2">
                 <template slot="title">
-                    <i class="iconfont icon-iconset0123"> </i>
+                    <i class="iconfont icon-note-note" style="font-size: 25px"></i>
                     <span>我的笔记</span>
                 </template>
                 <el-menu-item-group>
@@ -38,7 +38,7 @@
             <!-- 子菜单：笔记本管理 -->
             <el-submenu index="3">
                 <template slot="title">
-                    <i class="iconfont icon-biji"></i>
+                    <i class="iconfont icon-note-category" style="font-size: 25px"></i>
                     <span>笔记分类</span>
                 </template>
                 <el-menu-item-group>
@@ -150,5 +150,8 @@
 </script>
 
 <style scoped>
+    i{
+        padding-right: 10px;
+    }
 
 </style>

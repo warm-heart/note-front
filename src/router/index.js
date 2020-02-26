@@ -8,6 +8,7 @@ import myCollection from "@/components/note/myCollection";
 import noteDetail from "@/components/note/NoteDetail";
 import updateNote from "@/components/note/updateNote";
 import compareNote from "@/components/note/compareNote";
+import  compareNoteDetail from "@/components/note/compareNoteDetail";
 /*笔记分类*/
 import myNotebook from "@/components/notebook/myNotebook";
 import notebookInfo from "@/components/notebook/notebookInfo";
@@ -85,6 +86,15 @@ export default new Router({
                         title: "笔记精选",
                     },
                 },
+                {
+                    path: "compareNoteDetail",
+                    name: "compareNoteDetail",
+                    component: compareNoteDetail,
+                    meta: {
+                        title: "笔记精选详情",
+                    },
+                },
+
                 {
                     path: "myNote",
                     name: "myNote",

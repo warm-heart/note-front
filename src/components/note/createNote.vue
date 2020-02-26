@@ -1,14 +1,12 @@
 <template>
     <div class="createNote">
 
-
         <!--文本编辑器-->
         <el-form :model="note" :rules="rules" ref="note" label-width="100px" class="demo-ruleForm">
             <el-form-item>
                 <note-editor class="editor" v-bind:interestContent="interestContent"
                              @editor-change="e=>{contentGet(e)}"></note-editor>
             </el-form-item>
-
         </el-form>
 
         <!--  弹出完善信息-->
@@ -23,54 +21,57 @@
                 size="600px"
         >
             <div class="form">
-                <el-form :model="note" :rules="rules">
-                    <el-form-item label="笔记标题" prop="noteTitle">
-                        <el-input v-model="note.noteTitle"></el-input>
-                    </el-form-item>
+                <el-card>
+
+                    <el-row type="flex" justify="start">
+                        完善新建笔记信息
+                    </el-row>
+                    <el-form :model="note" :rules="rules" style="margin-top: 20px">
+                        <el-form-item label="笔记标题" prop="noteTitle">
+                            <el-input v-model="note.noteTitle"></el-input>
+                        </el-form-item>
 
 
-                    <el-form-item label="笔记描述" prop="noteDescription">
-                        <el-input v-model="note.noteDescription"></el-input>
-                    </el-form-item>
+                        <el-form-item label="笔记描述" prop="noteDescription">
+                            <el-input v-model="note.noteDescription"></el-input>
+                        </el-form-item>
 
 
-                    <el-form-item label="" prop="categoryName">
-                        <el-select v-model="note.categoryName" placeholder="请选择笔记分类">
-                            <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.label"
-                                       :value="item.categoryName"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item>
+                        <el-form-item label="" prop="categoryName">
+                            <el-select v-model="note.categoryName" placeholder="请选择笔记分类">
+                                <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.label"
+                                           :value="item.categoryName"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item>
 
-                        <el-tag
-                                :key="tag"
-                                v-for="tag in noteTags"
-                                closable
-                                :disable-transitions="false"
-                                @close="handleClose(tag)">
-                            {{tag}}
-                        </el-tag>
-                        <el-input
-                                class="input-new-tag"
-                                v-if="inputVisible"
-                                v-model="inputValue"
-                                ref="saveTagInput"
-                                size="small"
-                                @keyup.enter.native="handleInputConfirm"
-                                @blur="handleInputConfirm"
-                        >
-                        </el-input>
-                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 为笔记添加标签</el-button>
-                    </el-form-item>
-                </el-form>
-                <div class="demo-drawer__footer">
-                    <el-button @click="cancelForm">取 消</el-button>
-                    <!-- <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中
-                         ...' : '确 定' }}
-                     </el-button>-->
-
-                    <el-button type="primary" @click="createNote">创建笔记</el-button>
-                </div>
+                            <el-tag
+                                    :key="tag"
+                                    v-for="tag in noteTags"
+                                    closable
+                                    :disable-transitions="false"
+                                    @close="handleClose(tag)">
+                                {{tag}}
+                            </el-tag>
+                            <el-input
+                                    class="input-new-tag"
+                                    v-if="inputVisible"
+                                    v-model="inputValue"
+                                    ref="saveTagInput"
+                                    size="small"
+                                    @keyup.enter.native="handleInputConfirm"
+                                    @blur="handleInputConfirm"
+                            >
+                            </el-input>
+                            <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 为笔记添加标签
+                            </el-button>
+                        </el-form-item>
+                    </el-form>
+                    <el-row type="flex" justify="end">
+                        <el-button @click="cancelForm">取 消</el-button>
+                        <el-button type="primary" @click="createNote">创建笔记</el-button>
+                    </el-row>
+                </el-card>
             </div>
         </el-drawer>
 
@@ -251,9 +252,8 @@
     }
 
     .form {
-
         height: 500px;
-        width: 500px;
+        width: 400px;
         margin: 0px auto;
     }
 

@@ -3,16 +3,16 @@
         <!-- 头部 -->
         <el-header>
             <el-row>
-                <el-col :span="2" :offset="1">
+                <el-col :span="4">
 
                     <!-- <el-image style="width: 210px; height: 54px" :src="./assets/note.png"></el-image>-->
                     <!--<img alt="Vue logo" style="width: 210px; height: 58px;" src="../assets/logo2.png">-->
-                    在线笔记系统
+                    <span class="font-note_logo">在线笔记系统</span>
 
                 </el-col>
 
                 <template v-if="!isLogin">
-                    <el-col :span="4" :offset="17">
+                    <el-col :span="4" :offset="16">
                         <el-button @click="toLogin">登录</el-button>
 
                         <el-button @click="toRegister">注册</el-button>
@@ -20,7 +20,7 @@
                 </template>
 
                 <template v-else>
-                    <el-col :span="4" :offset="17">
+                    <el-col :span="4" :offset="16">
                         <div class="navOperater">
                             <el-avatar
                                     :src="userIcon"
@@ -81,7 +81,10 @@
                 </template>
                 <router-view></router-view>
             </el-main>
+
+
         </el-container>
+
     </el-container>
 
 </template>
@@ -190,8 +193,10 @@
 <style lang="scss" scoped>
 
 
-    .el-header, .el-footer {
-        background-color: #07c4a8;
+    .el-header {
+        /*background-color: #07c4a8;*/
+        background-color: #232325;
+        display: block;
         color: white;
         text-align: center;
         line-height: 60px;
@@ -212,6 +217,15 @@
         background-color: #e9eef3;
         text-align: center;
 
+    }
+
+    .el-footer {
+        /*background-color: #07c4a8;*/
+        background-color: #d9d9d9;
+        color: #232325;
+        display: block;
+        text-align: center;
+        line-height: 60px;
     }
 
     body > .el-container {
@@ -253,5 +267,17 @@
 
     }
 
+    .cate-list {
+        padding-right: 20px;
+    }
+
+    .list_item {
+        /* width: 100%; */
+        font-size: 15px;
+        line-height: 35px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
 </style>

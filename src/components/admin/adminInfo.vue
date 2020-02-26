@@ -3,9 +3,70 @@
 
     <div>
 
-        管理员个人中心
-        {{user.userName}}
-        {{user.userPhone}}
+        <div style="margin-bottom: 50px" class="font-note-title">
+            欢迎您：{{user.userName}}<br>
+            您可以管理以下内容
+        </div>
+
+        <el-card>
+
+
+            <el-row style="margin-top: 20px">
+                <el-col :span="6" :offset="4">
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">笔记管理</i>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category">公告管理</i>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category">用户管理</i>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <el-row style="margin-top: 20px">
+                <el-col :span="6" :offset="4">
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">笔记管理</i>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category">公告管理</i>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category">用户管理</i>
+                    </el-card>
+                </el-col>
+            </el-row>
+
+            <el-row style="margin-top: 20px">
+                <el-col :span="6" :offset="4">
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">笔记管理</i>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category">公告管理</i>
+                    </el-card>
+                </el-col>
+                <el-col :span="6">
+                    <el-card class="box-card">
+                        <i class="iconfont icon-note-category">用户管理</i>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </el-card>
     </div>
 </template>
 
@@ -55,5 +116,9 @@
 </script>
 
 <style scoped>
+    .box-card {
+        height: 100px;
+        width: 200px;
+    }
 
 </style>

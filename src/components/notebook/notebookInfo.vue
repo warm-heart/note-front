@@ -2,57 +2,59 @@
     <div>
 
         <div v-for="note in notes">
+
             <el-card class="box-card" shadow="hover">
-                <span class="title">{{note.noteTitle}}</span>
+                <span class="note_title">{{note.noteTitle}}</span>
 
                 <template v-if="!note.noteStatus">
 
                     <el-row>
                         <el-col>
                             <div v-html='note.noteContext.substring(0,200).concat("......")' class="content">
-
                             </div>
                         </el-col>
                     </el-row>
 
 
                     <el-row>
-                        <el-col :span="7">
-                            <span class="description"> At time/{{note.updateTime.substring(0,10)}}</span>
+                        <el-col :span="6">
+                            <span class="description"> 更新于&nbsp;{{note.updateTime.substring(0,10)}}</span>
                         </el-col>
 
-                        <template v-if="note.shareStatus">
 
-                            <el-button size="mini" type="success" style="margin-bottom: -4px"
-                                       @click="cancelShareNote(note.noteId)">取消分享
-                            </el-button>
+                        <el-col :span="8" :offset="10">
+                            <div style="display: flex; justify-content: flex-end">
+                                <template v-if="note.shareStatus">
 
-                        </template>
-                        <template v-else>
+                                    <el-button size="mini" type="success"
+                                               @click="cancelShareNote(note.noteId)">取消分享
+                                    </el-button>
 
-                            <el-button size="mini" type="primary" icon="el-icon-share"
-                                       @click="shareNote(note.noteId)">分享
+                                </template>
+                                <template v-else>
 
-                            </el-button>
+                                    <el-button size="mini" type="primary" icon="el-icon-share"
+                                               @click="shareNote(note.noteId)">分享
 
-                        </template>
+                                    </el-button>
 
-                        <el-col :span="2" :offset="8">
-                            <el-button type="primary" size="mini" plain
-                                       @click="editNote(note.noteId)">
-                                <i class="el-icon-edit">编辑</i>
-                            </el-button>
-                        </el-col>
-                        <el-col :span="2">
-                            <el-button type="success" size="mini" plain
-                                       @click="noteDetail(note.noteId)"><i class="el-icon-view"> 详情</i>
-                            </el-button>
-                        </el-col>
-                        <el-col :span="2">
-                            <el-button @click="removeNote(note.noteId)"
-                                       size="mini" type="danger" plain>
-                                <i class="el-icon-delete"> 删除</i>
-                            </el-button>
+                                </template>
+                                <el-button type="primary" size="mini" plain
+                                           @click="editNote(note.noteId)">
+                                    <i class="el-icon-edit">编辑</i>
+                                </el-button>
+
+
+                                <el-button type="success" size="mini" plain
+                                           @click="noteDetail(note.noteId)"><i class="el-icon-view"> 详情</i>
+                                </el-button>
+
+
+                                <el-button @click="removeNote(note.noteId)"
+                                           size="mini" type="danger" plain>
+                                    <i class="el-icon-delete"> 删除</i>
+                                </el-button>
+                            </div>
                         </el-col>
                     </el-row>
                 </template>
@@ -174,16 +176,23 @@
     .description {
         font-size: 15px;
         float: left;
-        margin-top: 15px;
+        color: #999;
+        margin-top: 10px;
     }
 
     .content {
         float: left;
         text-align: left;
+        font-size: 15px;
     }
 
     .box-card {
         margin-top: 10px;
+    }
+
+    .el-row {
+        margin-top: 15px;
+        text-align: left;
     }
 
 

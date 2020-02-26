@@ -28,11 +28,12 @@
                         <el-form ref="registerUser" :rules="registerRules" :model="registerUser" status-icon
                                  label-width="70px">
                             <el-form-item prop="userName" label="用户名">
-                                <el-input v-model="registerUser.userName" placeholder="请输入用户名"></el-input>
+                                <el-input v-model="registerUser.userName" placeholder="您的用户名"></el-input>
                             </el-form-item>
 
                             <el-form-item prop="password" label="设置密码">
-                                <el-input v-model="registerUser.password" show-password placeholder="请输入密码"></el-input>
+                                <el-input v-model="registerUser.password" show-password
+                                          placeholder="6-16位字母和数字组合"></el-input>
                             </el-form-item>
                             <el-form-item prop="rePassword" label="确认密码">
                                 <el-input v-model="registerUser.rePassword" show-password placeholder="确认密码"></el-input>
@@ -85,9 +86,14 @@
         name: "loginAndRegister",
         data() {
             var validatePass = (rule, value, callback) => {
-                if (value === '') {
+                const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+                if (!value) {
                     callback(new Error('请输入密码'));
-                } else {
+                }
+                if (!reg.test(value)) {
+                    callback(new Error('6-16位字母和数字组合,不包含特殊字符'));
+                }
+                else {
                     if (this.registerUser.rePassword !== '') {
                         this.$refs.registerUser.validateField('rePassword');
                     }
@@ -95,7 +101,7 @@
                 }
             };
             var validatePass2 = (rule, value, callback) => {
-                if (value === '') {
+                if (!value) {
                     callback(new Error('请再次输入密码'));
                 } else if (value !== this.registerUser.password) {
                     callback(new Error('两次输入密码不一致!'));
@@ -124,13 +130,20 @@
                 },
                 //login end
                 //register start
+
                 registerUser: {},
 
-
                 registerRules: {
+
                     userName: [
                         {required: true, message: '请输入用户名', trigger: 'blur'},
-                        {min: 3, max: 24, message: '长度在 3 到 24 个字符', trigger: 'blur'}
+                        {min: 3, max: 24, message: '长度在 4 到 16 个字符', trigger: 'blur'},
+                        {
+                            required: true,
+                            pattern: /^[a-zA-Z0-9_-]{4,16}$/,
+                            message: '4到16位（字母，数字，下划线，减号）',
+                            trigger: 'blur'
+                        },
                     ],
                     nickName: [
                         {required: true, message: '请输入昵称', trigger: 'blur'},
@@ -282,7 +295,7 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background: url("../../assets/login-bg.jpg") no-repeat center center fixed;
+        background: url("../../assets/img/login-bg.jpg") no-repeat center center fixed;
         background-size: 100%;
         top: 0px;
         left: 0px;

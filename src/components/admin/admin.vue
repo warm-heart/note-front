@@ -32,9 +32,11 @@
                 <template slot="title">个人中心</template>
                 <el-menu-item index="4-1" @click="logout">退出登录</el-menu-item>
                 <el-menu-item index="4-2"  @click="adminInfo">个人中心</el-menu-item>
-
             </el-submenu>
 
+            <el-menu-item index="3">
+                <router-link to="/home">前台</router-link>
+            </el-menu-item>
 
         </el-menu>
 

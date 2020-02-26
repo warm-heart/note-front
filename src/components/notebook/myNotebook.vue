@@ -11,25 +11,32 @@
                 direction="ttb"
                 custom-class="demo-drawer"
                 ref="drawer"
-                size="600px"
+                size="500px"
         >
             <div class="form">
-                <el-form :model="noteCategory" :rules="rules">
-                    <el-form-item label="笔记分类名称" prop="categoryName">
-                        <el-input v-model="noteCategory.categoryName"></el-input>
-                    </el-form-item>
+                <el-card>
+                    <el-row type="flex" justify="start">
+                        修改笔记分类信息
+                    </el-row>
+
+                    <el-form :model="noteCategory" :rules="rules" style="margin-top: 20px">
+                        <el-form-item label="笔记分类名称" prop="categoryName">
+                            <el-input v-model="noteCategory.categoryName"></el-input>
+                        </el-form-item>
 
 
-                    <el-form-item label="笔记分类描述" prop="categoryDescription">
-                        <el-input v-model="noteCategory.categoryDescription"></el-input>
-                    </el-form-item>
+                        <el-form-item label="笔记分类描述" prop="categoryDescription">
+                            <el-input v-model="noteCategory.categoryDescription"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <el-row type="flex" justify="end">
+                        <el-button type="primary" @click="updateNoteBook">确认修改</el-button>
+                        <el-button @click="cancelForm">取 消</el-button>
+                    </el-row>
 
-                </el-form>
-                <div class="demo-drawer__footer">
-                    <el-button type="primary" @click="updateNoteBook">确认修改</el-button>
-                    <el-button @click="cancelForm">取 消</el-button>
 
-                </div>
+                </el-card>
+
             </div>
         </el-drawer>
 
@@ -279,4 +286,9 @@
         float: left;
     }
 
+    .form {
+        height: 400px;
+        width: 400px;
+        margin: 0px auto;
+    }
 </style>

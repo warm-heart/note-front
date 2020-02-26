@@ -2,20 +2,53 @@
     <div>
 
 
+        <el-row type="flex" justify="end" style="margin-bottom: 10px">
+            <!--   TODO 禁用笔记-->
+
+            <el-col :span="8">
+                <div style="display: flex;justify-content: flex-end">
+                    <el-button>禁用此笔记</el-button>
+                </div>
+            </el-col>
+
+        </el-row>
+
+
         <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <span>{{note.noteTitle}}{{userName}}</span>
+            <!--标题-->
+            <el-row type="flex" justify="start">
+                <div style="display: flex;justify-content: flex-start">
+                    <span class="title">{{note.noteTitle}}</span>
+                </div>
+            </el-row>
+            <!--分类-->
+            <el-row type="flex" justify="start">
+                <el-col :span="8">
+                    <div style="display: flex;justify-content: flex-start">
+                        分类： {{noteCategory.categoryName}}
+                    </div>
+                </el-col>
+                <!--标签-->
+                <el-col :span="8" :offset="8">
+                    <div style="display: flex; justify-content: flex-end">
+                        <el-tag v-for="tag in noteTags">{{tag}}</el-tag>
+                    </div>
+                </el-col>
+
+            </el-row>
+            <el-row>
+                <div style="display: flex;color: #969696; font-size: 12px">
+                    上次更新时间： {{note.updateTime}}
+                </div>
+            </el-row>
 
 
-                <el-tag v-for="it in noteTags">{{it}}</el-tag>
-
-
-                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-            </div>
+            <el-divider></el-divider>
 
             <div class="content" v-html='note.noteContext'></div>
 
         </el-card>
+
     </div>
 </template>
 
@@ -79,6 +112,13 @@
 
     .content {
         text-align: left;
+    }
+
+    .title {
+        font-size: 30px;
+        font-weight: 700;
+        word-break: break-word;
+        margin-bottom: 8px;
     }
 
 </style>

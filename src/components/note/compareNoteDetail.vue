@@ -1,44 +1,42 @@
 <template>
     <div>
 
-        <el-row type="flex" justify="end" style="margin-bottom: 10px">
-            <!--   TODO 移动笔记到其他分类  删除笔记 跳转到修改页面-->
-            <el-button>移动到其他分类</el-button>
-            <el-button>删除笔记</el-button>
-            <el-button>修改笔记</el-button>
-        </el-row>
-
 
         <el-card class="box-card">
-            <!--标题-->
             <el-row type="flex" justify="start">
-                <div style="display: flex;justify-content: flex-start">
-                    <span class="title">{{note.noteTitle}}</span>
-                </div>
+                <span class="title">{{note.noteTitle}}</span>
             </el-row>
-            <!--分类-->
             <el-row type="flex" justify="start">
                 <el-col :span="8">
-                    <div style="display: flex;justify-content: flex-start">
+                    <div style="display: flex; justify-content: flex-start">
+                        作者： {{userName}}
+                    </div>
+
+                </el-col>
+                <el-col :span="8">
+                    <!--居中-->
+                    <div style="display: flex;justify-content: center">
                         分类： {{noteCategory.categoryName}}
                     </div>
+
                 </el-col>
-                <!--标签-->
-                <el-col :span="8" :offset="8">
-                    <div style="display: flex; justify-content: flex-end">
-                        <el-tag size="mini" type="danger" effect="dark" v-for="tag in noteTags">{{tag}}</el-tag>
+                <el-col :span="8">
+                    <!--右对齐-->
+                    <div style="display: flex;justify-content: flex-end">
+                        <el-tag v-for="tag in noteTags">{{tag}}</el-tag>
                     </div>
                 </el-col>
-            </el-row>
 
+            </el-row>
             <el-row>
-                <div style="display: flex;color: #969696; font-size: 12px;margin-top: 10px">
-                    上次更新时间： {{note.updateTime}}
+                <div style="display: flex; justify-content:flex-start;color: #969696; font-size: 12px">
+                    上次更新时间：{{note.updateTime}}
                 </div>
             </el-row>
 
 
             <el-divider></el-divider>
+
 
             <div class="content" v-html='note.noteContext'></div>
 
@@ -50,7 +48,7 @@
     import qs from 'qs'
 
     export default {
-        name: "NoteDetail",
+        name: "compareNoteDetail",
         data() {
             return {
 
@@ -99,6 +97,10 @@
 
 <style scoped>
 
+
+    .el-tag + .el-tag {
+        margin-left: 10px;
+    }
 
     .content {
         text-align: left;

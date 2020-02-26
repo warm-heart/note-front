@@ -19,6 +19,8 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+import './assets/commons/css/common.css'
+import './assets/commons/js/common'
 
 
 Vue.config.productionTip = false;

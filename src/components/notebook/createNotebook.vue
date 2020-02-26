@@ -1,24 +1,38 @@
 <template>
     <div class="createNoteBook">
 
-        新建笔记分类
 
+        <el-card>
+            <el-row type="flex" justify="start">
+                <div style="display: flex;justify-content: flex-start;margin-bottom: 20px">
+                    新建笔记分类
+                </div>
 
-        <el-form :model="noteBook" :rules="rules" ref="noteBook" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="笔记分类名" prop="categoryName">
-                <el-input v-model="noteBook.categoryName"></el-input>
-            </el-form-item>
+            </el-row>
 
-            <el-form-item label="分类描述" prop="categoryDescription">
-                <el-input v-model="noteBook.categoryDescription"></el-input>
-            </el-form-item>
+            <el-form :model="noteBook" :rules="rules" ref="noteBook" label-width="100px">
+                <el-row>
+                    <el-form-item label="笔记分类名" prop="categoryName">
+                        <el-input v-model="noteBook.categoryName"></el-input>
+                    </el-form-item>
+                </el-row>
 
-            <el-form-item>
-                <el-button type="primary" @click="createNoteBook">立即创建</el-button>
-                <!-- <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>-->
-                <el-button @click="resetForm('noteBook')">重置</el-button>
-            </el-form-item>
-        </el-form>
+                <el-row>
+                    <el-form-item label="分类描述" prop="categoryDescription">
+                        <el-input v-model="noteBook.categoryDescription"></el-input>
+                    </el-form-item>
+                </el-row>
+
+                <el-row type="flex" justify="end">
+                    <el-form-item>
+                        <el-button type="primary" @click="createNoteBook">立即创建</el-button>
+                        <el-button @click="resetForm('noteBook')">重置</el-button>
+                    </el-form-item>
+                </el-row>
+
+            </el-form>
+
+        </el-card>
 
 
     </div>
@@ -93,8 +107,5 @@
 </script>
 
 <style scoped>
-    .createNoteBook {
-        background-color: #07c4a8;
-    }
 
 </style>

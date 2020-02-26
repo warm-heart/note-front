@@ -3,8 +3,8 @@
 
 
         <el-carousel :interval="4000" type="card" height="200px">
-            <el-carousel-item v-for="item in 6" :key="item">
-                <img :src="usericon">
+            <el-carousel-item v-for="(img,index) in images" :key="index">
+                <img :src="img.url">
             </el-carousel-item>
         </el-carousel>
 
@@ -15,7 +15,7 @@
                 <el-card class="box-card">
                     <el-row>
                         <el-col>
-                            <span>{{note.noteTitle}}</span>
+                            <span class="font-note-title">{{note.noteTitle}}</span>
                         </el-col>
 
                     </el-row>
@@ -41,7 +41,7 @@
 
                     <el-row>
                         <div class="description">
-                            At time/{{note.updateTime.substring(0,10)}}
+                            更新于&nbsp;{{note.updateTime.substring(0,10)}}
                             点赞数：{{note.loveCount}}
                         </div>
                     </el-row>
@@ -97,7 +97,15 @@
         name: "compareNote",
         data() {
             return {
-                usericon: localStorage.getItem("user-icon"),
+                images: [
+                    {url: require('../../assets/img/carousel-1.jpg')},
+                    {url: require('../../assets/img/carousel-2.jpg')},
+                    {url: require('../../assets/img/carousel-3.jpg')},
+                    {url: require('../../assets/img/carousel-4.jpg')},
+                    {url: require('../../assets/img/carousel-5.jpg')},
+                    {url: localStorage.getItem("user-icon")},
+
+                ],
                 noteShare: [],
                 //定义分页 Config
                 pageConf: {
@@ -139,7 +147,7 @@
             },
             noteDetail(noteId) {
                 this.$router.push({
-                    name: 'noteDetail',
+                    name: 'compareNoteDetail',
                     query: {noteId: noteId}
                 })
             },
@@ -205,13 +213,14 @@
     .content {
         float: left;
         text-align: left;
-
+        font-size: 15px;
     }
 
     .description {
         font-size: 15px;
         float: left;
         margin-top: 15px;
+        color: #999;
     }
 
     .item {
@@ -249,4 +258,5 @@
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
     }
+
 </style>

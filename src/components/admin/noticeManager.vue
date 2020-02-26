@@ -13,23 +13,33 @@
                 ref="drawer"
                 size="600px"
         >
+
             <div class="form">
-                <el-form :model="notice" :rules="rules">
-                    <el-form-item label="公告标题" prop="noticeTitle">
-                        <el-input v-model="notice.noticeTitle"></el-input>
-                    </el-form-item>
+                <el-card>
+                    <el-row type="flex" justify="start">
+                        <div style="display: flex;justify-content: flex-start;margin-bottom: 20px">
+                            修改公告信息
+                        </div>
+
+                    </el-row>
 
 
-                    <el-form-item label="公告内容" prop="noticeContext">
-                        <el-input type="textarea" :rows="8" v-model="notice.noticeContext"></el-input>
-                    </el-form-item>
+                    <el-form :model="notice" :rules="rules">
+                        <el-form-item label="公告标题" prop="noticeTitle">
+                            <el-input v-model="notice.noticeTitle"></el-input>
+                        </el-form-item>
+                        <!--todo 展示前30个字 的公告内容-->
+                        <el-form-item label="公告内容" prop="noticeContext">
+                            <el-input type="textarea" :rows="8" v-model="notice.noticeContext.substring(0,30)"></el-input>
+                        </el-form-item>
 
-                </el-form>
-                <div class="demo-drawer__footer">
-                    <el-button type="primary" @click="editNotice">确认修改</el-button>
-                    <el-button @click="cancelForm">取 消</el-button>
+                    </el-form>
+                    <el-row type="flex" justify="end">
+                        <el-button type="primary" @click="editNotice">确认修改</el-button>
+                        <el-button @click="cancelForm">取 消</el-button>
+                    </el-row>
+                </el-card>
 
-                </div>
             </div>
         </el-drawer>
 
@@ -272,7 +282,7 @@
             adminNoticeDetail(index, row) {
                 this.$router.push({
                     name: "adminNoticeDetail",
-                    query:{noticeId:row.noticeId}
+                    query: {noticeId: row.noticeId}
                 })
             },
 
