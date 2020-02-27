@@ -1,9 +1,13 @@
 <template>
     <div>
 
+        <el-row type="flex" justify="end" style="margin-bottom: 10px">
+            <div style="display: flex;justify-content: end">
+                <el-button type="primary">填写反馈</el-button>
+            </div>
+        </el-row>
+
         <div v-for="notice in notices">
-
-
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span>{{notice.noticeTitle}}</span>

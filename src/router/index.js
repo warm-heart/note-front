@@ -4,11 +4,12 @@ import Router from "vue-router";
 import Home from "@/components/Home";
 import myNote from "@/components/note/myNote";
 import createNote from "@/components/note/createNote";
-import myCollection from "@/components/note/myCollection";
+
 import noteDetail from "@/components/note/NoteDetail";
 import updateNote from "@/components/note/updateNote";
 import compareNote from "@/components/note/compareNote";
-import  compareNoteDetail from "@/components/note/compareNoteDetail";
+import compareNoteDetail from "@/components/note/compareNoteDetail";
+import noteSearch from '@/components/note/noteSearch'
 /*笔记分类*/
 import myNotebook from "@/components/notebook/myNotebook";
 import notebookInfo from "@/components/notebook/notebookInfo";
@@ -26,8 +27,10 @@ import noticeDetail from "@/components/user/noticeDetail";
 /*admin start*/
 import admin from "@/components/admin/admin";
 import noteManager from "@/components/admin/noteManager";
+import lockNote from "@/components/admin/lockNote";
 import adminNoteDetail from "@/components/admin/adminNoteDetail";
 import userManager from "@/components/admin/userManager";
+import lockUser from "@/components/admin/lockUser";
 import noticeManager from "@/components/admin/noticeManager";
 import createNotice from "@/components/admin/createNotice";
 import adminNoticeDetail from "@/components/admin/adminNoticeDetail";
@@ -132,15 +135,17 @@ export default new Router({
                         requireAuth: true,
                     }
                 },
+
                 {
-                    path: "myCollection",
-                    name: "myCollection",
-                    component: myCollection,
+                    path: "noteSearch",
+                    name: "noteSearch",
+                    component: noteSearch,
                     meta: {
-                        title: "我的收藏",
-                        requireAuth: true,
+                        title: "搜索结果",
+                        requireAuth: false,
                     }
                 },
+
                 {
                     path: "myNotebook",
                     name: "myNotebook",
@@ -236,6 +241,24 @@ export default new Router({
                     component: userManager,
                     meta: {
                         title: "用户管理",
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: "lockUser",
+                    name: "lockUser",
+                    component: lockUser,
+                    meta: {
+                        title: "封禁用户",
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: "lockNote",
+                    name: "lockNote",
+                    component: lockNote,
+                    meta: {
+                        title: "封禁的笔记",
                         requireAuth: true
                     }
                 },

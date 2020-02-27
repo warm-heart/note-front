@@ -11,82 +11,74 @@
 
         <div>
             <div v-for="note in noteShare">
+                <template v-if="!note.noteStatus">
+                    <el-card class="box-card" shadow="hover">
+                        <span class="font-note-title">{{note.noteTitle}}</span>
+                        <el-row>
+                            <el-col>
+                                <div v-html='note.noteContext.substring(0,200).concat("......")' class="content">
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="6">
+                                <span class="description"> 更新于&nbsp;{{note.updateTime.substring(0,10)}}</span>
+                            </el-col>
+                            <el-col :span="8" :offset="10">
+                                <div style="display: flex; justify-content: flex-end">
+                                    <template v-if="note.shareStatus">
 
-                <el-card class="box-card">
-                    <el-row>
-                        <el-col>
-                            <span class="font-note-title">{{note.noteTitle}}</span>
-                        </el-col>
+                                        <el-button size="mini" type="success"
+                                                   @click="cancelShareNote(note.noteId)">取消分享
+                                        </el-button>
 
-                    </el-row>
+                                    </template>
+                                    <template v-else>
 
-                    <el-row>
-                        <el-button style="float: right; padding: 3px 0" type="text"
-                                   @click="noteDetail(note.noteId)">
-                            查看详情
-                        </el-button>
-                        <el-button style="float: right; padding: 3px 0" type="text"
-                                   @click="love(note.noteId)">
-                            点赞
-                        </el-button>
-                    </el-row>
+                                        <el-button size="mini" type="primary" icon="el-icon-share"
+                                                   @click="shareNote(note.noteId)">分享
 
+                                        </el-button>
 
-                    <el-row>
-
-                        <div v-html='note.noteContext.substring(0,200).concat("......")' class="content">
-
-                        </div>
-                    </el-row>
-
-                    <el-row>
-                        <div class="description">
-                            更新于&nbsp;{{note.updateTime.substring(0,10)}}
-                            点赞数：{{note.loveCount}}
-                        </div>
-                    </el-row>
+                                    </template>
+                                    <el-button type="primary" size="mini" plain
+                                               @click="editNote(note.noteId)">
+                                        <i class="el-icon-edit">编辑</i>
+                                    </el-button>
 
 
-                </el-card>
+                                    <el-button type="success" size="mini" plain
+                                               @click="noteDetail(note.noteId)"><i class="el-icon-view"> 详情</i>
+                                    </el-button>
+
+
+                                    <el-button @click="removeNote(note.noteId)"
+                                               size="mini" type="danger" plain>
+                                        <i class="el-icon-delete"> 删除</i>
+                                    </el-button>
+                                </div>
+                            </el-col>
+
+                        </el-row>
+
+                    </el-card>
+                </template>
 
             </div>
-            <!-- <el-card class="box-card" shadow="hover">
-                 <div slot="header" class="clearfix">
-                     <span>{{note.noteTitle}}</span>
-                     <div v-if="!note.noteStatus">
-                         <el-button style="float: right; padding: 3px 0" type="text"
-                                    @click="noteDetail(note.noteId)">
-                             查看详情
-                         </el-button>
-                         <el-button style="float: right; padding: 3px 0" type="text"
-                                    @click="love(note.noteId)">
-                             点赞
-                         </el-button>
-                     </div>
-                     <div v-else> 您的文章被禁用，请联系管理员</div>
-                 </div>
-                 <div class="text">
-                     <div v-html='note.noteDescription'>
-                     </div>
-                     更新时间：{{note.updateTime}}
-                     点赞数：{{note.loveCount}}
-                 </div>
-             </el-card>-->
+            <!-- 分页 -->
+            <div class="pagination">
+                <el-pagination
+                        background
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="pageConf.pageCode"
+                        :page-sizes="pageConf.pageOption"
+                        :page-size="pageConf.pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="pageConf.totalPage">
+                </el-pagination>
+            </div>
         </div>
-        <!-- 分页 -->
-        <div class="pagination">
-            <el-pagination
-                    background
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="pageConf.pageCode"
-                    :page-sizes="pageConf.pageOption"
-                    :page-size="pageConf.pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="pageConf.totalPage">
-            </el-pagination>
-        </div>
-    </div>
     </div>
 </template>
 

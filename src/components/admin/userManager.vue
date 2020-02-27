@@ -1,6 +1,14 @@
 <template>
     <div>
 
+        <el-row type="flex" justify="end" style="margin-top: 10px;margin-bottom: 10px">
+            <div>
+                <el-button type="warning" @click="toLockUser"> 查看被封禁的用户</el-button>
+            </div>
+
+        </el-row>
+
+        <el-divider></el-divider>
         <!--表格-->
         <el-table
                 :data="users.filter(data => !search || data.userName.toLowerCase().includes(search.toLowerCase()))"
@@ -209,7 +217,7 @@
                                     type: 'success',
                                     duration: 1500
                                 });
-                                 location.reload();
+                                location.reload();
 
                             } else {
                                 that.$message({
@@ -242,6 +250,12 @@
             handleCurrentChange(val) {
                 this.pageConf.pageCode = val;
                 this.findByPage(val, this.pageConf.pageSize);
+            },
+            toLockUser() {
+                let that = this;
+                that.$router.push({
+                    name: 'lockUser'
+                })
             },
         },
         created() {

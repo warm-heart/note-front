@@ -1,6 +1,13 @@
 <template>
     <div>
+        <el-row type="flex" justify="end" style="margin-top: 10px;margin-bottom: 10px">
+            <div>
+                <el-button type="warning" @click="toLockNote"> 查看被封禁的笔记</el-button>
+            </div>
 
+        </el-row>
+
+        <el-divider></el-divider>
         <!--表格-->
         <el-table
                 :data="notes.filter(data => !search || data.noteTitle.toLowerCase().includes(search.toLowerCase()))"
@@ -185,7 +192,7 @@
                                     type: 'success',
                                     duration: 1500
                                 });
-                                //location.reload();
+                                location.reload();
 
                             } else {
                                 that.$message({
@@ -246,8 +253,14 @@
                         message: '已取消解封'
                     });
                 });
-
             },
+            toLockNote(){
+                let that=this;
+                that.$router.push({
+                    name:'lockNote'
+                })
+            },
+
         },
         created() {
             this.findByPage(this.pageConf.pageCode, this.pageConf.pageSize);

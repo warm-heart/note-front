@@ -11,12 +11,18 @@
                 background-color="#545c64"
                 text-color="#fff"
                 active-text-color="#ffd04b">
-            <el-menu-item index="1" @click="userManager">用户管理</el-menu-item>
+
+
+            <el-submenu index="1">
+                <template slot="title">用户管理</template>
+                <el-menu-item index="1-1" @click="userManager">查看所有用户</el-menu-item>
+                <el-menu-item index="1-2" @click="lockUser">查看被封禁的用户</el-menu-item>
+            </el-submenu>
             <el-submenu index="2">
                 <template slot="title">公告管理</template>
                 <el-menu-item index="2-1" @click="noticeManager">查看公告</el-menu-item>
                 <el-menu-item index="2-2" @click="createNotice">发布公告</el-menu-item>
-                <el-menu-item index="2-3">选项3</el-menu-item>
+                <el-menu-item index="2-3">查看用户反馈</el-menu-item>
                 <el-submenu index="2-4">
                     <template slot="title">选项4</template>
                     <el-menu-item index="2-4-1">选项1</el-menu-item>
@@ -25,23 +31,27 @@
                 </el-submenu>
             </el-submenu>
 
-            <el-menu-item index="3">
-                <router-link to="/admin/noteManager">笔记管理</router-link>
-            </el-menu-item>
-            <el-submenu index="4">
-                <template slot="title">个人中心</template>
-                <el-menu-item index="4-1" @click="logout">退出登录</el-menu-item>
-                <el-menu-item index="4-2"  @click="adminInfo">个人中心</el-menu-item>
+
+            <el-submenu index="3">
+                <template slot="title">笔记管理</template>
+                <el-menu-item index="3-1" @click="noteManager">查看所有笔记</el-menu-item>
+                <el-menu-item index="3-2" @click="lockNote">查看封禁的笔记</el-menu-item>
             </el-submenu>
 
-            <el-menu-item index="3">
+
+            <el-menu-item index="4">
                 <router-link to="/home">前台</router-link>
             </el-menu-item>
 
+            <el-submenu index="5">
+                <template slot="title">个人中心</template>
+                <el-menu-item index="5-1" @click="logout">退出登录</el-menu-item>
+                <el-menu-item index="5-2" @click="adminInfo">个人中心</el-menu-item>
+            </el-submenu>
+
         </el-menu>
 
-
-        <router-view ></router-view>
+        <router-view></router-view>
 
     </div>
 </template>
@@ -55,7 +65,7 @@
         data() {
             return {
 
-                token:localStorage.getItem("token"),
+                token: localStorage.getItem("token"),
             }
         },
         methods: {
@@ -107,9 +117,26 @@
             },
             //用户管理
             userManager() {
-
                 this.$router.push({
                     name: "userManager"
+                });
+            },
+            //封禁的用户
+            lockUser() {
+                this.$router.push({
+                    name: "lockUser"
+                });
+            },
+            //笔记管理
+            noteManager() {
+                this.$router.push({
+                    name: "noteManager"
+                });
+            },
+            //封禁的笔记
+            lockNote() {
+                this.$router.push({
+                    name: "lockNote"
                 });
             },
             //公告管理

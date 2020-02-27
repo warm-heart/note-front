@@ -14,25 +14,25 @@
             <el-row style="margin-top: 20px">
                 <el-col :span="6" :offset="4">
                     <el-card class="box-card">
-                        <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">笔记管理</i>
+                        <i class="el-icon-user-solid" style="text-align: center; margin: 0 auto">查看所有用户</i>
                     </el-card>
                 </el-col>
                 <el-col :span="6">
 
                     <el-card class="box-card">
-                        <i class="iconfont icon-note-category">公告管理</i>
+                        <i class="el-icon-unlock">查看封禁的用户</i> 
                     </el-card>
                 </el-col>
                 <el-col :span="6">
                     <el-card class="box-card">
-                        <i class="iconfont icon-note-category">用户管理</i>
+                        <i class="iconfont icon-note-category">查看所有笔记</i>
                     </el-card>
                 </el-col>
             </el-row>
             <el-row style="margin-top: 20px">
                 <el-col :span="6" :offset="4">
                     <el-card class="box-card">
-                        <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">笔记管理</i>
+                        <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">查看封禁的笔记</i>
                     </el-card>
                 </el-col>
                 <el-col :span="6">
@@ -43,7 +43,7 @@
                 </el-col>
                 <el-col :span="6">
                     <el-card class="box-card">
-                        <i class="iconfont icon-note-category">用户管理</i>
+                        <i class="iconfont icon-note-category">创建公告</i>
                     </el-card>
                 </el-col>
             </el-row>
@@ -51,18 +51,18 @@
             <el-row style="margin-top: 20px">
                 <el-col :span="6" :offset="4">
                     <el-card class="box-card">
-                        <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">笔记管理</i>
+                        <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">前台</i>
                     </el-card>
                 </el-col>
                 <el-col :span="6">
 
                     <el-card class="box-card">
-                        <i class="iconfont icon-note-category">公告管理</i>
+                        <i class="iconfont icon-note-category">退出登录</i>
                     </el-card>
                 </el-col>
                 <el-col :span="6">
                     <el-card class="box-card">
-                        <i class="iconfont icon-note-category">用户管理</i>
+                        <i class="iconfont icon-note-category">todo</i>
                     </el-card>
                 </el-col>
             </el-row>

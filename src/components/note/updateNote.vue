@@ -2,59 +2,49 @@
     <div>
 
         <el-form :model="note" :rules="rules" ref="note" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="笔记标题" prop="noteTitle">
-                <el-input v-model="note.noteTitle"></el-input>
-            </el-form-item>
-
-            <el-form-item label="笔记描述" prop="noteDescription">
-                <el-input v-model="note.noteDescription"></el-input>
-            </el-form-item>
-
-            <el-form-item label="笔记分类" prop="categoryName">
-                <el-select v-model="note.categoryName" placeholder="请选择笔记分类">
-                    <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.label"
-                               :value="item.categoryName"></el-option>
-                </el-select>
-            </el-form-item>
-
-
-            <el-form-item>
-
-                <el-tag
-                        :key="tag"
-                        v-for="tag in noteTags"
-                        closable
-                        :disable-transitions="false"
-                        @close="handleClose(tag)">
-                    {{tag}}
-                </el-tag>
-                <el-input
-                        class="input-new-tag"
-                        v-if="inputVisible"
-                        v-model="inputValue"
-                        ref="saveTagInput"
-                        size="small"
-                        @keyup.enter.native="handleInputConfirm"
-                        @blur="handleInputConfirm"
-                >
-                </el-input>
-                <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 为笔记添加标签</el-button>
-            </el-form-item>
-
-
+            <el-card class="da">
+                <el-form-item label="笔记标题" prop="noteTitle">
+                    <el-input v-model="note.noteTitle"></el-input>
+                </el-form-item>
+                <el-form-item label="笔记描述" prop="noteDescription">
+                    <el-input v-model="note.noteDescription"></el-input>
+                </el-form-item>
+                <el-form-item label="笔记分类" prop="categoryName">
+                    <el-select v-model="note.categoryName" placeholder="请选择笔记分类">
+                        <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.label"
+                                   :value="item.categoryName"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-tag
+                            :key="tag"
+                            v-for="tag in noteTags"
+                            closable
+                            :disable-transitions="false"
+                            @close="handleClose(tag)">
+                        {{tag}}
+                    </el-tag>
+                    <el-input
+                            class="input-new-tag"
+                            v-if="inputVisible"
+                            v-model="inputValue"
+                            ref="saveTagInput"
+                            size="small"
+                            @keyup.enter.native="handleInputConfirm"
+                            @blur="handleInputConfirm"
+                    >
+                    </el-input>
+                    <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 为笔记添加标签</el-button>
+                </el-form-item>
+            </el-card>
             <el-form-item>
                 <note-editor class="editor" v-bind:interestContent="interestContent"
                              @editor-change="e=>{contentGet(e)}"></note-editor>
             </el-form-item>
-
-
             <el-form-item>
                 <el-button type="primary" @click="updateNote">修改</el-button>
             </el-form-item>
-
-
         </el-form>
-
 
     </div>
 </template>
@@ -238,6 +228,12 @@
         width: 90px;
         margin-left: 10px;
         vertical-align: bottom;
+    }
+
+    .da {
+        background-color: bisque;
+        margin-bottom: 10px;
+
     }
 
 </style>

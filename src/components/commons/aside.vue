@@ -32,7 +32,7 @@
                     <el-menu-item index="22" @click="toCreateNote">新建笔记</el-menu-item>
                 </el-menu-item-group>
                 <el-menu-item-group>
-                    <el-menu-item index="23" @click="toMyCollection">我的收藏</el-menu-item>
+                    <el-menu-item index="23" @click="toNoteSearch">搜索我的笔记</el-menu-item>
                 </el-menu-item-group>
             </el-submenu>
             <!-- 子菜单：笔记本管理 -->
@@ -108,9 +108,9 @@
                 });
             },
             //我的收藏
-            toMyCollection() {
+            toNoteSearch() {
                 this.$router.push({
-                    name: "myCollection"
+                    name: "noteSearch"
                 });
             },
             //我的笔记分类

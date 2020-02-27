@@ -6,7 +6,7 @@
 
             <el-col :span="6" :offset="14">
                 <el-input
-                        placeholder="请输入内容"
+                        placeholder="请输入笔记标题"
                         v-model="noteName">
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 </el-input>
@@ -79,7 +79,7 @@
 
 
                 <template v-else>
-                    <div style="margin-top: 20px;font-size: 20px">您的文章被封禁，请联系管理员</div>
+                    <div style="margin-top: 20px;font-size: 20px">您的文章被封禁，请联系管理员或在公告界面反馈</div>
                 </template>
             </el-card>
 
@@ -276,25 +276,10 @@
             },
             search() {
                 let that = this;
-                this.axios.post('http://localhost:8080/note/search', qs.stringify({
-                    noteName: that.noteName,
-                }))
-                    .then(function (response) {
-                        var res = JSON.parse(JSON.stringify(response));
-                        if (res.data.code == 200) {
-                            that.notes = res.data.data;
-                        } else {
-                            that.$message({
-                                message: res.data.msg,
-                                type: 'warning',
-                                duration: 1500
-                            })
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        alert(error.response.data.msg)
-                    });
+                that.$router.push({
+                    name: 'noteSearch',
+                    query: {noteName: that.noteName,}
+                })
             },
             findByPage(pageCode, pageSize) {
                 let that = this;

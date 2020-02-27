@@ -1,36 +1,25 @@
 <template>
     <div>
-        <el-button type="primary" @click="toCreateNotice" class="add" icon="el-icon-plus">前往发布公告</el-button>
 
-
-        <!--修改公告-->
-        <el-drawer
-                title=""
-                :before-close="handleClose"
-                :visible.sync="dialog"
-                direction="ttb"
-                custom-class="demo-drawer"
-                ref="drawer"
-                size="600px"
-        >
-
-            <div class="form">
-                <el-card>
-                    <el-row type="flex" justify="start">
-                        <div style="display: flex;justify-content: flex-start;margin-bottom: 20px">
-                            修改公告信息
-                        </div>
-
-                    </el-row>
-
+        <el-row>
+            <el-col :span="4" style="margin-bottom: 10px;margin-top: 20px">
+                <el-button type="primary" @click="toCreateNotice" icon="el-icon-plus">前往发布公告</el-button>
+            </el-col>
+            <el-col :span="8" :offset="4">
+                <!--修改笔记分类弹窗-->
+                <el-popover
+                        placement="bottom"
+                        width="400"
+                        title="修改公告信息"
+                        v-model="visible"
+                        trigger="click">
 
                     <el-form :model="notice" :rules="rules">
                         <el-form-item label="公告标题" prop="noticeTitle">
                             <el-input v-model="notice.noticeTitle"></el-input>
                         </el-form-item>
-                        <!--todo 展示前30个字 的公告内容-->
                         <el-form-item label="公告内容" prop="noticeContext">
-                            <el-input type="textarea" :rows="8" v-model="notice.noticeContext.substring(0,30)"></el-input>
+                            <el-input type="textarea" :rows="8" v-model="notice.noticeContext"></el-input>
                         </el-form-item>
 
                     </el-form>
@@ -38,10 +27,12 @@
                         <el-button type="primary" @click="editNotice">确认修改</el-button>
                         <el-button @click="cancelForm">取 消</el-button>
                     </el-row>
-                </el-card>
 
-            </div>
-        </el-drawer>
+                </el-popover>
+
+            </el-col>
+        </el-row>
+
 
         <!--表格-->
         <el-table
@@ -55,11 +46,8 @@
                     type="index"
                     width="150rem"
             >
-
             </el-table-column>
-
             <el-table-column
-
                     prop="noticeTitle"
                     label="公告标题"
                     sortable
@@ -69,6 +57,9 @@
                     prop="noticeContext"
                     label="公告内容"
                     width="250rem">
+                <template slot-scope="scope">
+                    <span>{{scope.row.noticeContext.substring(0,10).concat('......')}}</span>
+                </template>
             </el-table-column>
 
             <el-table-column
@@ -93,7 +84,8 @@
                     <el-button
                             icon="el-icon-edit"
                             size="mini"
-                            @click="Edit(scope.$index, scope.row)">编辑
+                            slot="reference"
+                            @click="edit(scope.$index, scope.row)">编辑
                     </el-button>
 
                     <el-button @click="removeNotice(scope.$index, scope.row)" type="danger" size="small"
@@ -133,7 +125,7 @@
         data() {
             return {
                 //开启页面时不弹出修改框
-                dialog: false,
+                visible: false,
                 search: '',
                 notices: [],
                 notice: {},
@@ -155,7 +147,7 @@
                     ],
                     noticeContext: [
                         {required: true, message: '请输入公告内容', trigger: 'blur'},
-                        {min: 2, max: 64, message: '长度在 2到 64 个字符', trigger: 'blur'}
+                        {min: 2, max: 1000, message: '长度在 2到 1000 个字符', trigger: 'blur'}
                     ]
                 }
             }
@@ -228,9 +220,9 @@
 
 
             },
-            Edit(index, row) {
+            edit(index, row) {
                 this.notice = row;
-                this.dialog = true;
+                this.visible = true;
 
             },
             editNotice(index, row) {
@@ -303,19 +295,10 @@
                 this.findByPage(val, this.pageConf.pageSize);
             },
 
-            handleClose(done) {
-                this.$confirm('确认关闭？')
-                    .then(_ => {
-                        done();
-                    })
-                    .catch(_ => {
-                    });
-            },
             cancelForm() {
-                this.loading = false;
-                this.dialog = false;
+                this.visible = false;
                 clearTimeout(this.timer);
-                location.reload();
+
             }
         },
         created() {

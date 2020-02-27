@@ -13,9 +13,9 @@
 
                 <template v-if="!isLogin">
                     <el-col :span="4" :offset="16">
-                        <el-button @click="toLogin">登录</el-button>
+                        <el-button @click="toLogin" type="text">登录</el-button>
 
-                        <el-button @click="toRegister">注册</el-button>
+                        <el-button @click="toRegister" type="text">注册</el-button>
                     </el-col>
                 </template>
 
@@ -59,8 +59,6 @@
             <!-- 内容区 -->
             <el-main>
                 <template>
-
-
                     <el-backtop target="" :bottom="10">
                         <div
                                 style="{
@@ -82,7 +80,6 @@
                 <router-view></router-view>
             </el-main>
 
-
         </el-container>
 
     </el-container>
@@ -103,6 +100,7 @@
         },
         data() {
             return {
+                currentPath: [],
                 token: localStorage.getItem("token"),
                 isLogin: localStorage.getItem("token"),
                 userIcon: localStorage.getItem("user-icon"),
@@ -113,8 +111,6 @@
             };
         },
         methods: {
-
-
             handleCommand(command) {
                 if (command == 'logout') {
                     this.logout();
@@ -272,12 +268,8 @@
     }
 
     .list_item {
-        /* width: 100%; */
-        font-size: 15px;
-        line-height: 35px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        font-size: 14px;
+        line-height: 34px;
     }
 
 </style>

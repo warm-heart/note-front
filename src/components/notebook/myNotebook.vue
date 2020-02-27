@@ -1,23 +1,17 @@
 <template>
     <div>
-
-        <el-button type="primary" @click="toCreateNoteBook" class="add" icon="el-icon-plus">前往新增笔记分类</el-button>
-
-        <!--修改笔记分类-->
-        <el-drawer
-                title=""
-                :before-close="handleClose"
-                :visible.sync="dialog"
-                direction="ttb"
-                custom-class="demo-drawer"
-                ref="drawer"
-                size="500px"
-        >
-            <div class="form">
-                <el-card>
-                    <el-row type="flex" justify="start">
-                        修改笔记分类信息
-                    </el-row>
+        <el-row>
+            <el-col :span="4" style="margin-bottom: 10px">
+                <el-button type="primary" @click="toCreateNoteBook" icon="el-icon-plus">前往新增笔记分类</el-button>
+            </el-col>
+            <el-col :span="8" :offset="2">
+                <!--修改笔记分类弹窗-->
+                <el-popover
+                        placement="bottom"
+                        width="400"
+                        title="修改笔记分类信息"
+                        v-model="visible"
+                        trigger="click">
 
                     <el-form :model="noteCategory" :rules="rules" style="margin-top: 20px">
                         <el-form-item label="笔记分类名称" prop="categoryName">
@@ -33,12 +27,11 @@
                         <el-button type="primary" @click="updateNoteBook">确认修改</el-button>
                         <el-button @click="cancelForm">取 消</el-button>
                     </el-row>
+                </el-popover>
 
+            </el-col>
+        </el-row>
 
-                </el-card>
-
-            </div>
-        </el-drawer>
 
         <!--表格-->
         <el-table
@@ -86,7 +79,8 @@
                     <el-button
                             icon="el-icon-edit"
                             size="mini"
-                            @click="Edit(scope.$index, scope.row)">编辑
+                            slot="reference"
+                            @click="edit(scope.$index, scope.row)">编辑
                     </el-button>
 
                     <el-button @click="removeNoteBook(scope.$index, scope.row)" type="danger" size="small"
@@ -111,7 +105,7 @@
         data() {
             return {
                 //开启页面时不弹出修改框
-                dialog: false,
+                visible: false,
                 categoryList: [],
                 search: '',
                 noteCategory: {},
@@ -134,13 +128,12 @@
         },
         methods: {
 
-            Edit(index, row) {
+            edit(index, row) {
                 this.noteCategory = row;
-                this.dialog = true;
+                this.visible = true;
 
             },
             openNoteBook(index, row) {
-
                 this.$router.push({
                     name: "notebookInfo",
                     query: {categoryId: row.categoryId}
@@ -260,19 +253,10 @@
                     name: "createNotebook"
                 });
             },
-            handleClose(done) {
-                this.$confirm('确认关闭？')
-                    .then(_ => {
-                        done();
-                    })
-                    .catch(_ => {
-                    });
-            },
+
             cancelForm() {
-                this.loading = false;
-                this.dialog = false;
+                this.visible = false;
                 clearTimeout(this.timer);
-                location.reload();
             }
 
         },
@@ -281,14 +265,11 @@
 </script>
 
 <style scoped>
-    .add {
-        margin-bottom: 10px;
-        float: left;
-    }
 
     .form {
         height: 400px;
         width: 400px;
         margin: 0px auto;
     }
+
 </style>

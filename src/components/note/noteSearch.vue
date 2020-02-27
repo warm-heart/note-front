@@ -1,16 +1,31 @@
 <template>
+
     <div>
 
-        <div v-for="note in notes">
+        <el-row>
+            <el-col :span="6" :offset="14">
+                <el-input
+                        placeholder="请输入笔记标题"
+                        v-model="noteName">
+                    <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                </el-input>
+            </el-col>
+            <el-col :span="4">
+                <el-button icon="el-icon-search" type="primary" @click="search">点击搜索</el-button>
+            </el-col>
+        </el-row>
 
+
+        <div v-for="note in notes">
             <el-card class="box-card" shadow="hover">
-                <span class="note_title">{{note.noteTitle}}</span>
+                <span class="font-note-title">{{note.noteTitle}}</span>
 
                 <template v-if="!note.noteStatus">
 
                     <el-row>
                         <el-col>
                             <div v-html='note.noteContext.substring(0,200).concat("......")' class="content">
+
                             </div>
                         </el-col>
                     </el-row>
@@ -23,6 +38,7 @@
 
 
                         <el-col :span="8" :offset="10">
+
                             <div style="display: flex; justify-content: flex-end">
                                 <template v-if="note.shareStatus">
 
@@ -56,6 +72,7 @@
                                 </el-button>
                             </div>
                         </el-col>
+
                     </el-row>
                 </template>
 
@@ -68,18 +85,25 @@
         </div>
 
     </div>
+
 </template>
 
 <script>
-    import qs from "qs"
+    import qs from 'qs'
 
     export default {
-
-        name: "notebookInfo",
+        name: "noteSearch",
         data() {
+
+
             return {
+                noteName: '',
                 notes: [],
             }
+        },
+        created() {
+            var that = this;
+            document.title = that.$route.meta.title;
         },
         methods: {
 
@@ -111,6 +135,7 @@
                         .then(function (response) {
                             var res = JSON.parse(JSON.stringify(response));
                             if (res.data.code == 200) {
+                                location.reload();
                                 that.$message({
                                     message: res.data.data,
                                     type: 'success',
@@ -137,12 +162,98 @@
                         message: '已取消删除'
                     });
                 });
+
+
             },
 
-            getByCategoryIdAndUserId(categoryId) {
+            cancelShareNote(noteId) {
+                this.$confirm('是否取消分享, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let that = this;
+                    this.axios.post('http://localhost:8080/note/cancelShareNote', qs.stringify({
+                        noteId: noteId,
+                    }))
+                        .then(function (response) {
+                            var res = JSON.parse(JSON.stringify(response));
+                            if (res.data.code == 200) {
+                                location.reload();
+                                that.$message({
+                                    message: res.data.data,
+                                    type: 'success',
+                                    duration: 1500
+                                })
+
+                            } else {
+                                that.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    duration: 1500
+                                })
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert(error.response.data.msg)
+                        });
+
+                }).catch(() => {
+                    /*  this.$message({
+                          type: 'info',
+                          message: '操作成功'
+                      });*/
+                });
+
+
+            },
+
+            shareNote(noteId) {
+                this.$confirm('是否分享, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let that = this;
+                    this.axios.post('http://localhost:8080/note/shareNote', qs.stringify({
+                        noteId: noteId,
+                    }))
+                        .then(function (response) {
+                            var res = JSON.parse(JSON.stringify(response));
+                            if (res.data.code == 200) {
+                                that.$message({
+                                    message: res.data.data,
+                                    type: 'success',
+                                    duration: 1500
+                                });
+                                location.reload();
+
+                            } else {
+                                that.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    duration: 1500
+                                })
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert(error.response.data.msg)
+                        });
+
+                }).catch(() => {
+                    /*  this.$message({
+                          type: 'info',
+                          message: '已取消分享'
+                      });*/
+                });
+            },
+
+            search() {
                 let that = this;
-                this.axios.post('http://localhost:8080/note/findNoteByCategory', qs.stringify({
-                    categoryId: categoryId
+                this.axios.post('http://localhost:8080/note/search', qs.stringify({
+                    noteName: that.noteName,
                 }))
                     .then(function (response) {
                         var res = JSON.parse(JSON.stringify(response));
@@ -150,29 +261,29 @@
                             that.notes = res.data.data;
                         } else {
                             that.$message({
-                                message: "这里还没有您的笔记，赶快去创建把！",
+                                message: res.data.msg,
                                 type: 'warning',
                                 duration: 1500
                             })
                         }
-
                     })
                     .catch(function (error) {
                         console.log(error);
-                        //alert(error.response.data.msg)
+                        alert(error.response.data.msg)
                     });
             },
 
+
         },
         created() {
-            this.getByCategoryIdAndUserId(this.$route.query.categoryId);
+            this.noteName = this.$route.query.noteName;
+            this.search();
         }
-    }
 
+    }
 </script>
 
 <style scoped>
-
     .description {
         font-size: 15px;
         float: left;
@@ -187,7 +298,7 @@
     }
 
     .box-card {
-        margin-top: 10px;
+        margin-top: 8px;
     }
 
     .el-row {
