@@ -6,7 +6,7 @@
             <el-col :span="6" :offset="14">
                 <el-input
                         placeholder="请输入笔记标题"
-                        v-model="noteName">
+                        v-model="noteTitle">
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 </el-input>
             </el-col>
@@ -97,7 +97,7 @@
 
 
             return {
-                noteName: '',
+                noteTitle: '',
                 notes: [],
             }
         },
@@ -253,7 +253,7 @@
             search() {
                 let that = this;
                 this.axios.post('http://localhost:8080/note/search', qs.stringify({
-                    noteName: that.noteName,
+                    noteTitle: that.noteTitle,
                 }))
                     .then(function (response) {
                         var res = JSON.parse(JSON.stringify(response));
@@ -276,7 +276,7 @@
 
         },
         created() {
-            this.noteName = this.$route.query.noteName;
+            this.noteTitle = this.$route.query.noteTitle;
             this.search();
         }
 

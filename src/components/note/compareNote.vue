@@ -26,36 +26,11 @@
                             </el-col>
                             <el-col :span="8" :offset="10">
                                 <div style="display: flex; justify-content: flex-end">
-                                    <template v-if="note.shareStatus">
-
-                                        <el-button size="mini" type="success"
-                                                   @click="cancelShareNote(note.noteId)">取消分享
-                                        </el-button>
-
-                                    </template>
-                                    <template v-else>
-
-                                        <el-button size="mini" type="primary" icon="el-icon-share"
-                                                   @click="shareNote(note.noteId)">分享
-
-                                        </el-button>
-
-                                    </template>
-                                    <el-button type="primary" size="mini" plain
-                                               @click="editNote(note.noteId)">
-                                        <i class="el-icon-edit">编辑</i>
-                                    </el-button>
-
 
                                     <el-button type="success" size="mini" plain
                                                @click="noteDetail(note.noteId)"><i class="el-icon-view"> 详情</i>
                                     </el-button>
 
-
-                                    <el-button @click="removeNote(note.noteId)"
-                                               size="mini" type="danger" plain>
-                                        <i class="el-icon-delete"> 删除</i>
-                                    </el-button>
                                 </div>
                             </el-col>
 

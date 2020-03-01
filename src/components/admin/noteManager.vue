@@ -1,11 +1,28 @@
 <template>
     <div>
-        <el-row type="flex" justify="end" style="margin-top: 10px;margin-bottom: 10px">
-            <div>
-                <el-button type="warning" @click="toLockNote"> 查看被封禁的笔记</el-button>
-            </div>
+
+        <el-row style="margin-top: 20px">
+
+            <el-col :span="4" :offset="2">
+                <div>
+                    <el-button type="warning" @click="toLockNote"> 查看被封禁的笔记</el-button>
+                </div>
+            </el-col>
+
+            <el-col :span="4" :offset="10">
+                <el-input
+                        placeholder="请输入笔记标题"
+                        v-model="noteTitle">
+                    <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                </el-input>
+            </el-col>
+            <el-col :span="2">
+                <el-button icon="el-icon-search" type="primary" @click="searchNote">点击搜索</el-button>
+            </el-col>
+
 
         </el-row>
+
 
         <el-divider></el-divider>
         <!--表格-->
@@ -70,7 +87,7 @@
                     <el-input
                             v-model="search"
                             size="mini"
-                            placeholder="输入笔记标题关键字搜索"/>
+                            placeholder="输入笔记标题关键字过滤"/>
 
                 </template>
                 <template slot-scope="scope">
@@ -92,7 +109,7 @@
         </el-table>
 
 
-        <div class="pagination">
+        <div class="pagination" v-if="noSearch">
             <el-pagination
                     background
                     @size-change="handleSizeChange"
@@ -116,15 +133,20 @@
         name: "",
         data() {
             return {
+                //表格过滤数据
                 search: '',
                 notes: [],
+                //搜索数据
+                noteTitle: '',
+                //如果搜索出来的数据不显示分页，默认为false
+                noSearch: true,
                 //定义分页 Config
                 pageConf: {
                     //设置一些初始值(会被覆盖)
                     pageCode: 1, //当前页
                     pageSize: 5, //每页显示的记录数
                     totalPage: null, //总记录数
-                    pageOption: [5, 10, 20], //分页选项
+                    pageOption: [1,5, 10, 20], //分页选项
                     handleCurrentChange: function () {
                         //console.log("页码改变了");
                     }
@@ -254,12 +276,36 @@
                     });
                 });
             },
-            toLockNote(){
-                let that=this;
+            toLockNote() {
+                let that = this;
                 that.$router.push({
-                    name:'lockNote'
+                    name: 'lockNote'
                 })
             },
+            searchNote() {
+                let that = this;
+                this.axios.post('http://localhost:8080/admin/searchNote', qs.stringify({
+                    noteTitle: that.noteTitle,
+
+                }))
+                    .then(function (response) {
+                        var res = JSON.parse(JSON.stringify(response));
+                        if (res.data.code == 200) {
+                            that.notes = res.data.data;
+                            that.noSearch = false;
+                        } else {
+                            that.$message({
+                                message: res.data.msg,
+                                type: 'warning',
+                                duration: 1500
+                            })
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert(error.response.data.msg)
+                    });
+            }
 
         },
         created() {

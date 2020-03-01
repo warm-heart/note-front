@@ -1,6 +1,9 @@
 <template>
     <div>
 
+           <i class="font-note-title">笔记分类详情</i>
+
+        <el-divider></el-divider>
         <div v-for="note in notes">
 
             <el-card class="box-card" shadow="hover">
@@ -90,7 +93,6 @@
 
                 })
             },
-
             noteDetail(noteId) {
                 this.$router.push({
                     name: 'noteDetail',
@@ -138,7 +140,6 @@
                     });
                 });
             },
-
             getByCategoryIdAndUserId(categoryId) {
                 let that = this;
                 this.axios.post('http://localhost:8080/note/findNoteByCategory', qs.stringify({
@@ -163,6 +164,88 @@
                     });
             },
 
+            cancelShareNote(noteId) {
+                this.$confirm('是否取消分享, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let that = this;
+                    this.axios.post('http://localhost:8080/note/cancelShareNote', qs.stringify({
+                        noteId: noteId,
+                    }))
+                        .then(function (response) {
+                            var res = JSON.parse(JSON.stringify(response));
+                            if (res.data.code == 200) {
+                                location.reload();
+                                that.$message({
+                                    message: res.data.data,
+                                    type: 'success',
+                                    duration: 1500
+                                })
+
+                            } else {
+                                that.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    duration: 1500
+                                })
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert(error.response.data.msg)
+                        });
+
+                }).catch(() => {
+                    /*  this.$message({
+                          type: 'info',
+                          message: '操作成功'
+                      });*/
+                });
+
+
+            },
+            shareNote(noteId) {
+                this.$confirm('是否分享, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let that = this;
+                    this.axios.post('http://localhost:8080/note/shareNote', qs.stringify({
+                        noteId: noteId,
+                    }))
+                        .then(function (response) {
+                            var res = JSON.parse(JSON.stringify(response));
+                            if (res.data.code == 200) {
+                                that.$message({
+                                    message: res.data.data,
+                                    type: 'success',
+                                    duration: 1500
+                                });
+                                location.reload();
+
+                            } else {
+                                that.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    duration: 1500
+                                })
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            alert(error.response.data.msg)
+                        });
+
+                }).catch(() => {
+                    /*  this.$message({
+                          type: 'info',
+                          message: '已取消分享'
+                      });*/
+                });
+            },
         },
         created() {
             this.getByCategoryIdAndUserId(this.$route.query.categoryId);

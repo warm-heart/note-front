@@ -10,10 +10,18 @@
         <div v-for="notice in notices">
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span>{{notice.noticeTitle}}</span>
-                    <span> 发布时间{{notice.updateTime}}</span>
+                    <el-row>
+                        <el-col>
+                            <span>{{notice.noticeTitle}}</span>
+                        </el-col>
+                        <el-col style="display: flex;justify-content: start ;font-size: 12px">
+                            <span> 发布时间{{notice.updateTime}}</span>
+                        </el-col>
+                    </el-row>
+
+
                 </div>
-                <div>{{notice.noticeContext}}</div>
+                <div style="text-align: left">{{notice.noticeContext}}</div>
             </el-card>
         </div>
 
@@ -99,5 +107,6 @@
 </script>
 
 <style scoped>
+
 
 </style>

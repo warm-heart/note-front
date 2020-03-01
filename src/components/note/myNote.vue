@@ -3,11 +3,10 @@
     <div>
 
         <el-row>
-
             <el-col :span="6" :offset="14">
                 <el-input
                         placeholder="请输入笔记标题"
-                        v-model="noteName">
+                        v-model="noteTitle">
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 </el-input>
             </el-col>
@@ -111,7 +110,7 @@
             //用户信息
             //element-ui 的 table 需要的参数必须是 Array 类型的
             return {
-                noteName: '',
+                noteTitle: '',
                 notes: [],
                 //定义分页 Config
                 pageConf: {
@@ -233,7 +232,6 @@
 
 
             },
-
             shareNote(noteId) {
                 this.$confirm('是否分享, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -278,7 +276,7 @@
                 let that = this;
                 that.$router.push({
                     name: 'noteSearch',
-                    query: {noteName: that.noteName,}
+                    query: {noteTitle: that.noteTitle,}
                 })
             },
             findByPage(pageCode, pageSize) {

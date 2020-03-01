@@ -1,23 +1,22 @@
 <template>
     <div class="createNoteBook">
+        <i class="font-note-title">新建笔记分类</i>
+        <el-divider></el-divider>
 
+        <el-card style="margin: 0 auto ;width: 600px">
 
-        <el-card>
-            <el-row type="flex" justify="start">
-                <div style="display: flex;justify-content: flex-start;margin-bottom: 20px">
-                    新建笔记分类
-                </div>
-
-            </el-row>
+            <div slot="header" class="clearfix">
+                <span>创建笔记分类</span>
+            </div>
 
             <el-form :model="noteBook" :rules="rules" ref="noteBook" label-width="100px">
-                <el-row>
+                <el-row type="flex" justify="center">
                     <el-form-item label="笔记分类名" prop="categoryName">
                         <el-input v-model="noteBook.categoryName"></el-input>
                     </el-form-item>
                 </el-row>
 
-                <el-row>
+                <el-row type="flex" justify="center">
                     <el-form-item label="分类描述" prop="categoryDescription">
                         <el-input v-model="noteBook.categoryDescription"></el-input>
                     </el-form-item>
