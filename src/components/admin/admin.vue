@@ -22,7 +22,7 @@
                 <template slot="title">公告管理</template>
                 <el-menu-item index="2-1" @click="noticeManager">查看公告</el-menu-item>
                 <el-menu-item index="2-2" @click="createNotice">发布公告</el-menu-item>
-                <el-menu-item index="2-3">查看用户反馈</el-menu-item>
+                <el-menu-item index="2-3" @click="feedBackManager">查看用户反馈</el-menu-item>
                 <el-submenu index="2-4">
                     <template slot="title">选项4</template>
                     <el-menu-item index="2-4-1">选项1</el-menu-item>
@@ -143,6 +143,12 @@
             noticeManager() {
                 this.$router.push({
                     name: "noticeManager"
+                });
+            },
+            //反馈管理
+            feedBackManager() {
+                this.$router.push({
+                    name: "feedBackManager"
                 });
             },
             //创建公告

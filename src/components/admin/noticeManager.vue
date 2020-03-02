@@ -6,7 +6,7 @@
                 <el-button type="primary" @click="toCreateNotice" icon="el-icon-plus">前往发布公告</el-button>
             </el-col>
             <el-col :span="8" :offset="4">
-                <!--修改笔记分类弹窗-->
+                <!--修改公告弹窗-->
                 <el-popover
                         placement="bottom"
                         width="400"
