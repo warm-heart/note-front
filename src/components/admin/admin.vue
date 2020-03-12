@@ -36,6 +36,7 @@
                 <template slot="title">笔记管理</template>
                 <el-menu-item index="3-1" @click="noteManager">查看所有笔记</el-menu-item>
                 <el-menu-item index="3-2" @click="lockNote">查看封禁的笔记</el-menu-item>
+                <el-menu-item index="3-3" @click="noteAnalysis">笔记分析</el-menu-item>
             </el-submenu>
 
 
@@ -139,6 +140,13 @@
                     name: "lockNote"
                 });
             },
+            //笔记分析
+            noteAnalysis() {
+                this.$router.push({
+                    name: "noteAnalysis"
+                });
+            },
+
             //公告管理
             noticeManager() {
                 this.$router.push({

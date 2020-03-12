@@ -27,6 +27,7 @@ import noticeDetail from "@/components/user/noticeDetail";
 /*admin start*/
 import admin from "@/components/admin/admin";
 import noteManager from "@/components/admin/noteManager";
+import noteAnalysis from "@/components/admin/noteAnalysis";
 import lockNote from "@/components/admin/lockNote";
 import adminNoteDetail from "@/components/admin/adminNoteDetail";
 import userManager from "@/components/admin/userManager";
@@ -272,6 +273,16 @@ export default new Router({
                         requireAuth: true
                     }
                 },
+                {
+                    path: "noteAnalysis",
+                    name: "noteAnalysis",
+                    component: noteAnalysis,
+                    meta: {
+                        title: "笔记分析",
+                        requireAuth: true
+                    }
+                },
+
                 {
                     path: "adminNoteDetail",
                     name: "adminNoteDetail",
