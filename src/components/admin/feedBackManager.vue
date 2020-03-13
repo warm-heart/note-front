@@ -50,7 +50,10 @@
 
                 </template>
                 <template slot-scope="scope">
-
+                    <el-button size="mini"
+                               type="success"
+                               @click="adminNoticeDetail(scope.$index, scope.row)">查看
+                    </el-button>
 
                 </template>
             </el-table-column>
@@ -120,6 +123,12 @@
                         console.log(error);
                         alert(error.response.data.msg)
                     });
+            },
+            adminNoticeDetail(index, row) {
+                this.$router.push({
+                    name: "adminNoticeDetail",
+                    query: {noticeId: row.noticeId}
+                })
             },
 
             //pageSize 改变时触发的函数

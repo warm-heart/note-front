@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 
 import ElementUI from "element-ui";
+import echarts from 'echarts'
 import axios from './utils/http'
 import VueAxios from "vue-axios";
 
@@ -22,6 +23,9 @@ import 'quill/dist/quill.bubble.css'
 import './assets/commons/css/common.css'
 import './assets/commons/js/common'
 
+
+
+Vue.prototype.$echarts = echarts;
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
