@@ -51,7 +51,7 @@
                                     v-for="tag in noteTags"
                                     closable
                                     :disable-transitions="false"
-                                    @close="handleClose(tag)">
+                                    @close="handleCloseTag(tag)">
                                 {{tag}}
                             </el-tag>
                             <el-input
@@ -120,7 +120,7 @@
             contentGet(e) {
                 this.note.content = e;
             },
-            handleClose(tag) {
+            handleCloseTag(tag) {
                 this.noteTags.splice(this.noteTags.indexOf(tag), 1);
             },
 
@@ -211,7 +211,8 @@
                 this.dialog = false;
                 clearTimeout(this.timer);
                 location.reload();
-            }
+            },
+
         },
         created() {
             //获取笔记分类
