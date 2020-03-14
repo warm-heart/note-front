@@ -76,11 +76,11 @@
                 rules: {
                     noteTitle: [
                         {required: true, message: '请输入笔记标题', trigger: 'blur'},
-                        {min: 3, max: 64, message: '长度在 3 到 64 个字符', trigger: 'blur'}
+                        {min: 2, max: 64, message: '长度在 3 到 64 个字符', trigger: 'blur'}
                     ],
                     noteDescription: [
                         {required: true, message: '请输入笔记描述', trigger: 'blur'},
-                        {min: 3, max: 64, message: '长度在 3 到 64 个字符', trigger: 'blur'}
+                        {min: 2, max: 64, message: '长度在 3 到 64 个字符', trigger: 'blur'}
                     ]
                 }
 

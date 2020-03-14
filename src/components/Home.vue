@@ -3,46 +3,44 @@
         <!-- 头部 -->
         <el-header>
             <el-row>
-                <el-col :span="4">
+                <el-col :span="6">
 
-                    <!-- <el-image style="width: 210px; height: 54px" :src="./assets/note.png"></el-image>-->
-                    <!--<img alt="Vue logo" style="width: 210px; height: 58px;" src="../assets/logo2.png">-->
-                    <span class="font-note_logo">在线笔记系统</span>
+                    <div style="display: flex;justify-content: start ">
+
+                        <span class="font-note_logo">在线笔记系统</span>
+                    </div>
 
                 </el-col>
 
-                <template v-if="!isLogin">
-                    <el-col :span="4" :offset="16">
+
+                <el-col :span="6" v-if="!isLogin" :offset="12">
+
+                    <div style="display: flex;justify-content: end;margin-top: 10px;float: right">
                         <el-button @click="toLogin" type="text">登录</el-button>
-
                         <el-button @click="toRegister" type="text">注册</el-button>
-                    </el-col>
-                </template>
+                    </div>
 
-                <template v-else>
-                    <el-col :span="4" :offset="16">
-                        <div class="navOperater">
+                </el-col>
+
+                <el-col v-else :span="6" :offset="12">
+                    <div style="display: flex;justify-content: end;float: right">
+                        <div style="margin-right: 10px">
                             <el-avatar
                                     :src="userIcon"
                             ></el-avatar>
                         </div>
 
-                        <div class="navOperater">
-                            <el-dropdown trigger="click" @command="handleCommand" class="nav">
+                        <el-dropdown trigger="click" @command="handleCommand" class="nav">
                            <span class="el-dropdown-link">
                                {{userName}} <i class="el-icon-caret-bottom"></i>
                             </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item command="userDetail">个人中心</el-dropdown-item>
-                                    <el-dropdown-item command="logout">退出登录</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </div>
-                    </el-col>
-
-
-                </template>
-
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item command="userDetail">个人中心</el-dropdown-item>
+                                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </div>
+                </el-col>
 
             </el-row>
 

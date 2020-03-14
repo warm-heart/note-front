@@ -96,7 +96,7 @@
 
                 // 绘制图表
                 userTop.setOption({
-                    title: {text: '上传笔记Top5用户'},
+                    title: {text: '上传笔记TOP10用户'},
                     tooltip: {},
                     xAxis: {
                         type: 'category',
@@ -127,9 +127,18 @@
                     }]
                 });
                 noteShareTop.setOption({
-                    title: {text: '笔记分享top5用户'},
+                    title: {text: '笔记分享TOP10用户'},
                     tooltip: {},
                     xAxis: {
+                        type: 'category',
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 40,
+                            textStyle: {
+                                fontWeight: "bold",  //加粗
+                                color: "#000000"   //黑色
+                            },
+                        },
                         data: this.XShareAnalysis
                     },
                     yAxis: {},
@@ -141,7 +150,7 @@
                 });
                 tagTop.setOption({
                     title: {
-                        text: '笔记标签top5',
+                        text: '笔记标签TOP10',
                         //left right
                         x: 'center'
                     },
@@ -175,7 +184,7 @@
                         }]
                 });
                 categoryTop.setOption({
-                    title: {text: '笔记分类Top5'},
+                    title: {text: '笔记分类TOP10'},
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {

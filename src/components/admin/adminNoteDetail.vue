@@ -48,7 +48,7 @@
 
             <el-divider></el-divider>
 
-            <div class="content" v-html='note.noteContext'></div>
+            <div class="ql-show ql-editor" v-html='note.noteContext'></div>
 
         </el-card>
 
@@ -194,9 +194,6 @@
         margin-left: 10px;
     }
 
-    .content {
-        text-align: left;
-    }
 
     .title {
         font-size: 30px;
