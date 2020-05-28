@@ -33,7 +33,7 @@ import adminNoteDetail from "@/components/admin/adminNoteDetail";
 import userManager from "@/components/admin/userManager";
 import lockUser from "@/components/admin/lockUser";
 import noticeManager from "@/components/admin/noticeManager";
-import feedBackManager from "@/components/admin/feedBackManager";
+
 import createNotice from "@/components/admin/createNotice";
 import adminNoticeDetail from "@/components/admin/adminNoticeDetail";
 import adminInfo from "@/components/admin/adminInfo";
@@ -302,15 +302,7 @@ export default new Router({
                         requireAuth: true
                     }
                 },
-                {
-                    path: "feedBackManager",
-                    name: "feedBackManager",
-                    component: feedBackManager,
-                    meta: {
-                        title: "反馈管理",
-                        requireAuth: true
-                    }
-                },
+
                 {
                     path: "createNotice",
                     name: "createNotice",

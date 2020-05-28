@@ -8,7 +8,6 @@
                              @editor-change="e=>{contentGet(e)}"></note-editor>
             </el-form-item>
         </el-form>
-
         <!--  弹出完善信息-->
         <el-button type="primary" @click="dialog = true">点击完善新建笔记信息</el-button>
         <el-drawer
@@ -46,6 +45,7 @@
                         </el-form-item>
                         <el-form-item>
 
+                            <!--标签 start-->
                             <el-tag
                                     :key="tag"
                                     v-for="tag in noteTags"

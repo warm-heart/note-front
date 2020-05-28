@@ -64,7 +64,7 @@
 
 
                 <template v-else>
-                    <div style="margin-top: 20px;font-size: 20px">您的文章被封禁，请联系管理员或在公告页面填写反馈给管理员</div>
+                    <div style="margin-top: 20px;font-size: 20px">您的文章被封禁</div>
                 </template>
             </el-card>
 

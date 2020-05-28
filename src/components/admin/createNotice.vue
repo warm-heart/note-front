@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="margin-top: 20px">
         <el-form :model="notice" :rules="rules" ref="notice" label-width="100px" class="demo-ruleForm">
             <el-form-item label="公告标题" prop="noticeTitle">
                 <el-input v-model="notice.noticeTitle"></el-input>

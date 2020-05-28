@@ -72,6 +72,7 @@
                     modules: {
                         toolbar: {
                             container: toolbarOptions,  // 工具栏
+                            //点击图片
                             handlers: {
                                 'image': function (value) {
                                     if (value) {

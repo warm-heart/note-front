@@ -14,8 +14,8 @@
             <el-row style="margin-top: 20px">
                 <el-col :span="6" :offset="4">
                     <el-card class="box-card">
-                        <el-button @click="userManager">
-                            <i class="el-icon-user-solid" style="text-align: center; margin: 0 auto">查看所有用户</i>
+                        <el-button @click="userManager" type="primary">
+                            查看所有用户
                         </el-button>
 
                     </el-card>
@@ -23,15 +23,15 @@
                 <el-col :span="6">
 
                     <el-card class="box-card">
-                        <el-button @click="lockUser">
-                            <i class="el-icon-unlock">查看封禁的用户</i>
+                        <el-button @click="lockUser" type="primary">
+                            查看封禁的用户
                         </el-button>
                     </el-card>
                 </el-col>
                 <el-col :span="6">
                     <el-card class="box-card">
-                        <el-button @click="noteManager">
-                            <i class="iconfont icon-note-category">查看所有笔记</i>
+                        <el-button @click="noteManager" type="primary">
+                            查看所有笔记
                         </el-button>
                     </el-card>
                 </el-col>
@@ -39,51 +39,46 @@
             <el-row style="margin-top: 20px">
                 <el-col :span="6" :offset="4">
                     <el-card class="box-card">
-                        <el-button @click="lockNote">
-                            <i class="iconfont icon-note-category"
-                               style="text-align: center; margin: 0 auto">查看封禁的笔记</i>
+                        <el-button @click="lockNote" type="warning">
+
+                            查看封禁的笔记
                         </el-button>
                     </el-card>
                 </el-col>
                 <el-col :span="6">
 
                     <el-card class="box-card">
-                        <el-button @click="noticeManager">
-                            <i class="iconfont icon-note-category">公告管理</i>
+                        <el-button @click="noticeManager" type="warning">
+                            公告管理
                         </el-button>
                     </el-card>
                 </el-col>
                 <el-col :span="6">
                     <el-card class="box-card">
-                        <el-button @click="createNotice">
-                            <i class="iconfont icon-note-category">创建公告</i>
+                        <el-button @click="createNotice" type="warning">
+                            创建公告
                         </el-button>
                     </el-card>
                 </el-col>
             </el-row>
 
             <el-row style="margin-top: 20px">
+                <!--   <el-col :span="6" :offset="4">
+                       <el-card class="box-card">
+                           <el-button @click="feedBackManager">
+                               <i class="iconfont icon-note-category">反馈管理</i>
+                           </el-button>
+                       </el-card>
+                   </el-col>-->
                 <el-col :span="6" :offset="4">
                     <el-card class="box-card">
-                        <el-button @click="feedBackManager">
-                            <i class="iconfont icon-note-category">反馈管理</i>
-                        </el-button>
+                        <el-button @click="logout" type="success">退出登录</el-button>
                     </el-card>
-                </el-col>
-                <el-col :span="6">
 
-                    <el-card class="box-card">
-                        <el-button @click="logout">
-                            <i class="iconfont icon-note-category">退出登录</i>
-                        </el-button>
-                    </el-card>
                 </el-col>
                 <el-col :span="6">
                     <el-card class="box-card">
-                        <el-button @click="toFront">
-                            <i class="iconfont icon-note-category" style="text-align: center; margin: 0 auto">
-                                前台</i>
-                        </el-button>
+                        <el-button @click="toFront" type="success">前台</el-button>
                     </el-card>
                 </el-col>
             </el-row>

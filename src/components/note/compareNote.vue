@@ -2,12 +2,6 @@
     <div>
 
 
-        <el-carousel :interval="4000" type="card" height="200px">
-            <el-carousel-item v-for="(img,index) in images" :key="index">
-                <img :src="img.url">
-            </el-carousel-item>
-        </el-carousel>
-
 
         <div>
             <div v-for="note in noteShare">

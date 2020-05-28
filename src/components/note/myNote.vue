@@ -14,14 +14,10 @@
                 <el-button icon="el-icon-search" type="primary" @click="search">点击搜索</el-button>
             </el-col>
         </el-row>
-
-
         <div v-for="note in notes">
             <el-card class="box-card" shadow="hover">
                 <span class="font-note-title">{{note.noteTitle}}</span>
-
                 <template v-if="!note.noteStatus">
-
                     <el-row>
                         <el-col>
                             <div v-html='note.noteContext.substring(0,200).concat("......")' class="content">
@@ -78,7 +74,7 @@
 
 
                 <template v-else>
-                    <div style="margin-top: 20px;font-size: 20px">您的文章被封禁，请联系管理员或在公告界面反馈</div>
+                    <div style="margin-top: 20px;font-size: 20px">您的文章被封禁</div>
                 </template>
             </el-card>
 

@@ -180,7 +180,8 @@
                                     type: 'success',
                                     duration: 1500
                                 });
-                                location.reload();
+                                //location.reload();
+                                that.categoryList.splice(index,1);
 
                                 //console.log(that.categoryList);
                             } else {
@@ -225,7 +226,8 @@
                                     type: 'success',
                                     duration: 1500
                                 });
-                                location.reload();
+                                that.visible = false;
+
 
                             } else {
                                 that.$message({

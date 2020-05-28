@@ -22,13 +22,8 @@
                 <template slot="title">公告管理</template>
                 <el-menu-item index="2-1" @click="noticeManager">查看公告</el-menu-item>
                 <el-menu-item index="2-2" @click="createNotice">发布公告</el-menu-item>
-                <el-menu-item index="2-3" @click="feedBackManager">查看用户反馈</el-menu-item>
-                <el-submenu index="2-4">
-                    <template slot="title">选项4</template>
-                    <el-menu-item index="2-4-1">选项1</el-menu-item>
-                    <el-menu-item index="2-4-2">选项2</el-menu-item>
-                    <el-menu-item index="2-4-3">选项3</el-menu-item>
-                </el-submenu>
+             <!--   <el-menu-item index="2-3" @click="feedBackManager">查看用户反馈</el-menu-item>-->
+
             </el-submenu>
 
 
@@ -46,8 +41,9 @@
 
             <el-submenu index="5">
                 <template slot="title">个人中心</template>
-                <el-menu-item index="5-1" @click="logout">退出登录</el-menu-item>
-                <el-menu-item index="5-2" @click="adminInfo">个人中心</el-menu-item>
+                <el-menu-item index="5-1" @click="adminInfo">个人中心</el-menu-item>
+                <el-menu-item index="5-2" @click="logout">退出登录</el-menu-item>
+
             </el-submenu>
 
         </el-menu>

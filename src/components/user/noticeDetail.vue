@@ -5,7 +5,12 @@
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span>{{notice.noticeTitle}}</span>
-                <span> 发布时间{{notice.updateTime}}</span>
+                <el-row>
+                    <el-col style="display: flex;justify-content: start ;font-size: 12px" >
+                        <span > 发布时间：{{notice.updateTime}}</span>
+                    </el-col>
+                </el-row>
+
             </div>
             <div>{{notice.noticeContext}}</div>
         </el-card>

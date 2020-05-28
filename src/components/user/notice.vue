@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <el-row type="flex" justify="end" style="margin-bottom: 10px">
+      <!--  <el-row type="flex" justify="end" style="margin-bottom: 10px">
 
             <div style="display: flex;justify-content: end">
                 <el-button type="primary" @click="feedBack">填写反馈</el-button>
@@ -9,7 +9,7 @@
         </el-row>
         <el-row>
             <el-col :span="4" :offset="4">
-                <!--反馈弹窗-->
+                &lt;!&ndash;反馈弹窗&ndash;&gt;
                 <el-popover
                         placement="bottom"
                         width="400"
@@ -33,7 +33,7 @@
 
                 </el-popover>
             </el-col>
-        </el-row>
+        </el-row>-->
 
         <div v-for="notice in notices">
             <el-card class="box-card">
@@ -42,14 +42,19 @@
                         <el-col>
                             <span>{{notice.noticeTitle}}</span>
                         </el-col>
-                        <el-col style="display: flex;justify-content: start ;font-size: 12px">
-                            <span> 发布时间{{notice.updateTime}}</span>
+                        <el-col style="display: flex;justify-content: start ;font-size: 12px":span="12">
+                            <span > 发布时间：{{notice.updateTime}}</span>
+                        </el-col>
+                        <el-col style="display: flex;justify-content:end;font-size: 12px" :span="4" :offset="8">
+                            <el-button type="success" size="mini" plain
+                                       @click="noticeDetail(notice.noticeId)"><i class="el-icon-view"> 查看</i>
+                            </el-button>
                         </el-col>
                     </el-row>
 
 
                 </div>
-                <div style="text-align: left">{{notice.noticeContext}}</div>
+                <div style="text-align: left">{{notice.noticeContext.substring(0,20).concat("......")}}</div>
             </el-card>
         </div>
 
@@ -104,6 +109,14 @@
         },
 
         methods: {
+
+            noticeDetail(noticeId) {
+                this.$router.push({
+                    name: 'noticeDetail',
+                    query: {noticeId: noticeId}
+
+                })
+            },
             findByPage(pageCode, pageSize) {
                 let that = this;
                 this.axios.post('http://localhost:8080/notice/getAllNotice', qs.stringify({

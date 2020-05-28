@@ -231,7 +231,7 @@
     }
 
     .da {
-        background-color: bisque;
+
         margin-bottom: 10px;
 
     }
